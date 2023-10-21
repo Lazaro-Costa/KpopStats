@@ -1,6 +1,6 @@
-import { CardIdol } from '.'
-import PhotoItem from '../Photo/PhotoItem'
-import { Label } from '../Label'
+import { CardFront } from '.'
+import PhotoItem from '../../Photo/PhotoItem'
+import { Label } from '../../Label'
 
 interface IDataIdol {
   id: string;
@@ -12,7 +12,7 @@ interface IDataIdol {
 }
 const CardComponent = ({data}: {data: IDataIdol}) => {
   return (
-    <CardIdol.Container>
+    <CardFront.Container>
       <PhotoItem url={data.url} alt={data.group}/>
       <Label.Root>
         <div className='grid-rows-2'>
@@ -25,7 +25,7 @@ const CardComponent = ({data}: {data: IDataIdol}) => {
           </span>
         </div>
       </Label.Root>
-    </CardIdol.Container>
+    </CardFront.Container>
   )
 }
 

@@ -19,22 +19,29 @@
   border-radius: 8px;
 }
 
-.card:hover {
+/* .card:hover {
   transform: scale(1.04);
-}
+} */
 
 .circle {
-  width: 270px;
-  height: 270px;
+  width: 100px;
+  height: 100px;
 
-  top: 25px;
-  left: 15px;
-
-  background: radial-gradient(#b0e633, #53ef7d);
-  border-radius: 50%;
+  background: repeating-linear-gradient(48deg, #3023ae 0%, #ff0099 100%);
+  border-radius: 35% 30% 75% 30% / 49% 30% 70% 51%;
   position: absolute;
   animation: move-up6 2s ease-in infinite alternate-reverse;
   
+}
+.circle:nth-child(1) {
+  top: -5px;
+  left: -6px;
+}
+
+.circle:nth-child(2) {
+  bottom: -2px;
+  right: -10px;
+  animation-name: move-down1;
 }
 
 @keyframes move-up6 {
