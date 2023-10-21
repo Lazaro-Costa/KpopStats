@@ -1,0 +1,13 @@
+.containerPhoto{
+  position: absolute;
+  margin: 10% 10% auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+}
