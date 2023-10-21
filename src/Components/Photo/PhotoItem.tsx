@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styles from './CSS/PhotoItem.module.css';
 type IPhotoItem = {
   url: string;

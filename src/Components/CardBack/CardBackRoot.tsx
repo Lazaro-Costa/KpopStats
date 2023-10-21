@@ -1,7 +1,5 @@
-import './App.css'
-import { CardBack } from './Components/CardBack'
-// import CardComponent from './Components/CardIdol/CardComponent'
-import { CardIdol } from './Components/CardIdol/index'
+import style from './CSS/CardBack.module.css'
+
 const groups = [
   {
     id: 'sadasd123',
@@ -20,17 +18,19 @@ const groups = [
     members: ['Miwazaki Sakura', 'Hong Eunchae', 'Nakamura Kazuha', 'Huh Yunjin', 'Kim Garam', 'Kim Chaewon' ],
   }
 ]
-function App() {
+const CardBackRoot = () => {
   return (
-  <div>
-    <CardIdol.Root>
-      {/* {groups.map((data) => (
-        <CardComponent key={data.id} data={data}/>
-      ))} */}
-      <CardBack.Root />
-    </CardIdol.Root>
-  </div>
+    <div className={style.flipCard}>
+    <div className={style.flipCardInner}>
+        <div className={style.flipCardFront}>
+            Content Front
+        </div>
+        <div className={style.flipCardBack}>
+            Content Back
+        </div>
+    </div>
+</div>
   )
-
 }
-export default App
+
+export default CardBackRoot
