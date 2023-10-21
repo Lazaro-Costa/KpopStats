@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from './CSS/CardIdolContainer.module.css'
+import styles from './CSS/CardFrontContainer.module.css'
 
-const CardIdolContainer = ({children} : {children : React.ReactNode}) => {
+const CardFrontContainer = ({children} : {children : React.ReactNode}) => {
   // definir {url:string } nas props
   return (
     <div className={styles.card}>
@@ -13,4 +13,4 @@ const CardIdolContainer = ({children} : {children : React.ReactNode}) => {
   );
 }
 
-export default CardIdolContainer
+export default CardFrontContainer

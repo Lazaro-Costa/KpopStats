@@ -1,3 +1,5 @@
+import { CardBack } from '../CardBack'
+import { CardFront } from '../CardFront'
 import style from './CSS/CardBack.module.css'
 
 const groups = [
@@ -18,19 +20,21 @@ const groups = [
     members: ['Miwazaki Sakura', 'Hong Eunchae', 'Nakamura Kazuha', 'Huh Yunjin', 'Kim Garam', 'Kim Chaewon' ],
   }
 ]
-const CardBackRoot = () => {
+const FlipCardRoot = () => {
   return (
     <div className={style.flipCard}>
     <div className={style.flipCardInner}>
         <div className={style.flipCardFront}>
-            Content Front
+            {/* Content Front */}
+            <CardFront.Component key={groups[1].id} data={groups[1]}/>
         </div>
         <div className={style.flipCardBack}>
-            Content Back
+            {/* Content Back */}
+            <CardBack.Container />
         </div>
     </div>
 </div>
   )
 }
 
-export default CardBackRoot
+export default FlipCardRoot
