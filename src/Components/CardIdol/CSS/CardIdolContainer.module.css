@@ -1,0 +1,47 @@
+.card {
+  width: 300px;
+  height: 450px;
+  transition: all 0.2s;
+  position: relative;
+  cursor: pointer;
+  position: relative;
+}
+
+.cardInner {
+  width: inherit;
+  height: inherit;
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+}
+
+.card:hover {
+  transform: scale(1.04);
+}
+
+.circle {
+  width: 270px;
+  height: 270px;
+
+  top: 25px;
+  left: 15px;
+
+  background: radial-gradient(#b0e633, #53ef7d);
+  border-radius: 50%;
+  position: absolute;
+  animation: move-up6 2s ease-in infinite alternate-reverse;
+  
+}
+
+@keyframes move-up6 {
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes move-down1 {
+  to {
+    transform: translateY(10px);
+  }
+}
