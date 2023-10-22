@@ -1,15 +1,8 @@
 import { CardFront } from '.'
 import PhotoItem from '../../Photo/PhotoItem'
 import { Label } from '../../Label'
+import { IDataIdol } from '../../../Interfaces/DataIdol'
 
-interface IDataIdol {
-  id: string;
-  group: string;
-  fandom: string;
-  empresa: string;
-  url: string;
-  members: string[];
-}
 const CardComponent = ({data}: {data: IDataIdol}) => {
   return (
     <CardFront.Container>
