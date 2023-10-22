@@ -1,0 +1,31 @@
+.card {
+  width: 90px;
+  height: 90px;
+  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+  border-radius: 50%;
+  transition: all .3s;
+ }
+ 
+ .card2 {
+  width: 90px;
+  height: 90px;
+  background-color: #1a1a1a;
+  /* border-radius: inherit; */
+  transition: all .2s;
+  border-radius: 2rem;
+  overflow: hidden;
+ }
+ .card2 img{
+ width: 100%;
+   height: 100%;
+   object-fit: cover;
+ }
+ 
+ .card2:hover {
+  transform: scale(0.98);
+  border-radius: 50%;
+ }
+ 
+ .card:hover {
+  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+ }

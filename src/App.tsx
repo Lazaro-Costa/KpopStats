@@ -1,6 +1,7 @@
 import './App.css'
 import { FlipCard } from './Components/Card/FlipCard'
 import CardProvider from './Components/Card/CardProvider/CardProvider'
+import { groups } from './DataMock/DataIdol'
 
 // const groups = [
 //   {
@@ -25,7 +26,11 @@ function App() {
   return (
   <div>
     <CardProvider>
-      <FlipCard.Root />
+      {groups.map((group) => {
+        return (
+          <FlipCard.Root key={group.id} data={group} />
+        )
+      })}
     </CardProvider>
   </div>
   )
