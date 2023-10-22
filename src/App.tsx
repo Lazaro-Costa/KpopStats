@@ -2,6 +2,7 @@ import './App.css'
 import { FlipCard } from './Components/Card/FlipCard'
 import CardProvider from './Components/Card/CardProvider/CardProvider'
 import { groups } from './DataMock/DataIdol'
+import { Header } from './Components/Header'
 
 // const groups = [
 //   {
@@ -24,7 +25,9 @@ import { groups } from './DataMock/DataIdol'
 
 function App() {
   return (
-  <div>
+  <div className='App'>
+    <Header.Root />
+    <main className="AppBody">  
     <CardProvider>
       {groups.map((group) => {
         return (
@@ -32,6 +35,7 @@ function App() {
         )
       })}
     </CardProvider>
+    </main>
   </div>
   )
 
