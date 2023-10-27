@@ -5,7 +5,7 @@
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 2rem;
   padding: 1rem;
   /* From https://css.glass */

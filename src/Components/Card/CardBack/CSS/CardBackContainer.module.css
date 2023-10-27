@@ -35,7 +35,7 @@
   width: 100px;
   height: 100px;
 
-  background: repeating-linear-gradient(48deg, #3023ae 0%, #ff0099 100%);
+  background: repeating-linear-gradient(48deg, var(--azul) 0%, var(--rosa) 100%);
   border-radius: 35% 30% 75% 30% / 49% 30% 70% 51%;
   position: absolute;
   animation: move-up6 2s ease-in infinite alternate-reverse;
