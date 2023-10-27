@@ -12,3 +12,10 @@ export interface IDataIdol {
   logoUrl: string;
   members: IdolIcon[];
 }
+export interface ArtistInfo {
+  id: string,
+  url: string,
+  info: {
+    [key: string]: string
+  }
+}

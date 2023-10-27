@@ -1,4 +1,4 @@
-export const groups= [
+export const groups = [
   {
     id: 'sadasd123',
     group: 'ITZY',
@@ -74,5 +74,48 @@ export const groups= [
         icon: 'https://i.ibb.co/CpLrYhW/Chaewon.jpg',
       },
     ],
+  },
+];
+export const profiles = [
+  {
+    id: 'asd92349',
+    url: 'https://i.ibb.co/r2RGW9b/Lesserafim.jpg',
+    info: {
+      group_name: 'LE SSERAFIM',
+      fandom_name: 'FEARNOT',
+      company: 'Source Music',
+      official_website: 'le-sserafim.com',
+      official_japan_website: 'le-sserafim.jp',
+      weverse: 'LE SSERAFIM',
+      bilibili: '@LE_SSERAFIM',
+      instagram: '@le_sserafim',
+      youtube: 'LE SSERAFIM',
+      facebook: 'LE SSERAFIM',
+      twitter: '@im_lesserafim',
+      staff_twitter: '@le_sserafim',
+      japan_twitter: '@le_sserafim_jp',
+      vlive: 'LE SSERAFIM',
+      weibo: 'LE SSERAFIM',
+      tiktok: '@le_sserafim',
+      soundcloud: '@le_sserafim_official',
+    },
+  },
+  {
+    id: 'itzy123',
+    url: 'https://i.ibb.co/xMFd08b/Itzy-Checkmate.jpg',
+    info: {
+      group_name: 'ITZY',
+      fandom_name: 'MIDZY',
+      company: 'JYP Entertainment',
+      official_website: 'itzy.jype.com',
+      official_japan_website: 'itzyjapan.com',
+      weverse: 'ITZY',
+      instagram: 'itzy.all.in.us',
+      youtube: 'ITZY',
+      facebook: 'ITZY',
+      twitter: 'ITZYOfficial',
+      japan_twitter: 'JYPEITZY_JP',
+      tiktok: 'itzyofficial',
+    },
   },
 ];
