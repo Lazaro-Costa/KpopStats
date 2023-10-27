@@ -21,7 +21,7 @@ const FlipCardRoot = ({data}: {data: IDataIdol}) => {
           <span className={`${style.spanBtnFwd}`} onClick={toggleCard}>
             <Arrow.Forward/>
           </span>
-        </div>        
+        </div>
 
         <div className={style.flipCardBack}>
           <CardBack.Component key={data.id} data={data} />
@@ -31,7 +31,7 @@ const FlipCardRoot = ({data}: {data: IDataIdol}) => {
           </span>
         </div>
       </div>
-      
+
     </div>
   );
 };
