@@ -14,7 +14,7 @@ const CardComponent = ({ data }: { data: IDataIdol }) => {
               <Label.Small text={data.fandom} />
             </span>
             <span className="row-span-2">
-              <Label.Big text={data.group} />
+              <Label.Big text={data.group}/>
             </span>
           </div>
         </Label.Root>
