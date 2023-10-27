@@ -7,6 +7,12 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --verde-claro: #53ef7d;
+  --amarelo-verde: #b0e633;
+
+  --azul: #3023ae;
+  --rosa: #ff0099;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

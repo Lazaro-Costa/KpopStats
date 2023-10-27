@@ -30,7 +30,7 @@
   top: 25px;
   left: 15px;
 
-  background: radial-gradient(#b0e633, #53ef7d);
+  background: radial-gradient(var(--amarelo-verde), var(--verde-claro));
   border-radius: 50%;
   position: absolute;
   animation: move-up6 2s ease-in infinite alternate-reverse;
