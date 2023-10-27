@@ -9,5 +9,6 @@ export interface IDataIdol {
   fandom: string;
   empresa: string;
   url: string;
+  logoUrl: string;
   members: IdolIcon[];
 }

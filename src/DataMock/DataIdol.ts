@@ -5,6 +5,7 @@ export const groups= [
     fandom: 'Midzy',
     empresa: 'JYP Entertainment',
     url: 'https://i.ibb.co/xMFd08b/Itzy-Checkmate.jpg',
+    logoUrl: 'https://i.ibb.co/n3jxTMy/Itzy-logo.jpg',
     members: [
       {
         id: '3498fdfs',
@@ -39,6 +40,8 @@ export const groups= [
     fandom: 'FEARNOT',
     empresa: 'Source Music',
     url: 'https://i.ibb.co/r2RGW9b/Lesserafim.jpg',
+    logoUrl: 'https://i.ibb.co/KhwtGLL/Lessarafim-logo.jpg',
+
     members: [
       {
         id: 'afhsd9234',
