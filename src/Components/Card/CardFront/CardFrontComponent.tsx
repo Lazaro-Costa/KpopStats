@@ -6,7 +6,7 @@ import { IDataIdol } from '../../../Interfaces/DataIdol';
 const CardComponent = ({ data }: { data: IDataIdol }) => {
   return (
       <CardFront.Container>
-        <PhotoItem url={data.url} alt={data.group} />
+        <PhotoItem url={data.url} logoUrl={data.logoUrl} alt={data.group} />
         <Label.Root>
           <div className="grid-rows-2">
             <span className="row-span-1 flex gap-1 w-max h-max">

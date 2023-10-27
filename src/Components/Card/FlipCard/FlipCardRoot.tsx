@@ -5,7 +5,7 @@ import { CardFront } from '../CardFront';
 import style from './CSS/FlipCard.module.css';
 import { Arrow } from '../../Arrow';
 
-const FlipCardRoot = ({data}: {data: IDataIdol}) => {
+const FlipCardRoot = ({ data }: { data: IDataIdol }) => {
   const [isActive, setIsActive] = React.useState(false);
 
   const toggleCard = () => {
@@ -14,12 +14,11 @@ const FlipCardRoot = ({data}: {data: IDataIdol}) => {
   return (
     <div className={style.flipCard}>
       <div className={`${style.flipCardInner} ${isActive ? style.active : ''}`}>
-
         <div className={style.flipCardFront}>
           <CardFront.Component key={data.id} data={data} />
 
           <span className={`${style.spanBtnFwd}`} onClick={toggleCard}>
-            <Arrow.Forward/>
+            <Arrow.Forward />
           </span>
         </div>
 
@@ -27,11 +26,10 @@ const FlipCardRoot = ({data}: {data: IDataIdol}) => {
           <CardBack.Component key={data.id} data={data} />
 
           <span className={`${style.spanBtnBwd}`} onClick={toggleCard}>
-            <Arrow.Backward/>
+            <Arrow.Backward />
           </span>
         </div>
       </div>
-
     </div>
   );
 };
