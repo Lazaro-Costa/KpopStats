@@ -1,6 +1,7 @@
 export const groups = [
   {
     id: 'sadasd123',
+    profile: 'itzy',
     group: 'ITZY',
     fandom: 'Midzy',
     empresa: 'JYP Entertainment',
@@ -36,6 +37,7 @@ export const groups = [
   },
   {
     id: 'qwef3456',
+    profile: 'le_sserafim',
     group: 'LE SSERAFIM',
     fandom: 'FEARNOT',
     empresa: 'Source Music',
@@ -79,6 +81,7 @@ export const groups = [
 export const profiles = [
   {
     id: 'asd92349',
+    profile: 'le_sserafim',
     url: 'https://i.ibb.co/r2RGW9b/Lesserafim.jpg',
     info: {
       group_name: 'LE SSERAFIM',
@@ -102,6 +105,7 @@ export const profiles = [
   },
   {
     id: 'itzy123',
+    profile: 'itzy',
     url: 'https://i.ibb.co/xMFd08b/Itzy-Checkmate.jpg',
     info: {
       group_name: 'ITZY',

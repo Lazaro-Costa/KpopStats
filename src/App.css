@@ -20,7 +20,7 @@ body{
 .App{
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh + 2rem);
+  min-height: calc(100vh + 3rem);
 }
 .AppBody{
   flex: 1;
