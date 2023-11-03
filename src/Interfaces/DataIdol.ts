@@ -5,6 +5,7 @@ type IdolIcon ={
 }
 export interface IDataIdol {
   id: string;
+  profile: string,
   group: string;
   fandom: string;
   empresa: string;
@@ -14,6 +15,7 @@ export interface IDataIdol {
 }
 export interface ArtistInfo {
   id: string,
+  profile: string,
   url: string,
   info: {
     [key: string]: string
