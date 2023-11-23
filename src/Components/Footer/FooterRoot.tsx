@@ -1,13 +1,32 @@
-import style from './CSS/FooterRoot.module.css'
-const FooterRoot = () => {
+import React, { useState, useEffect } from 'react';
+
+const FootRoot: React.FC = () => {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+      setShowFooter(isBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <footer className={style.footer + ' bg-slate-800'}>
-      <nav className={style.nav + ' container'}>
-        <h1 className='text-slate-200'>This is the Footer</h1>
-      </nav>
-
+    <footer
+      className={`glass border-glass-t text-slate-50 w-full h-16 fixed bottom-0 transition-all duration-300 ${
+        showFooter ? 'opacity-100' : 'opacity-0 -bottom-16'
+      }`}
+    >
+      <div className="h-full flex items-center justify-center">
+        Footer
+      </div>
     </footer>
-  )
-}
+  );
+};
 
-export default FooterRoot
+export default FootRoot;

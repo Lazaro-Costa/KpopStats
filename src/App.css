@@ -9,7 +9,7 @@
   text-align: center;
 } */
 body{
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 4rem 0;
   margin: 0;
 }
 .container{
@@ -20,8 +20,24 @@ body{
 .App{
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh + 3rem);
+  min-height: calc(100vh + 4rem);
 }
 .AppBody{
+  padding: 2rem 4rem;
   flex: 1;
+}
+.glass{
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.01);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+}
+.border-glass-b{
+  border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+  border-radius: 8px;
+}
+.border-glass-t{
+  border-top: 1px solid rgba(255, 255, 255, 0.23);
+  border-radius: 8px;
 }
