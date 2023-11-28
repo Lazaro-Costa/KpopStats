@@ -4,6 +4,7 @@ export default {
   theme: {
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
+      mono: ['Inconsolata', 'monospace'],
     },
     extend: {},
   },

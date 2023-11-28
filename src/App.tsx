@@ -4,6 +4,7 @@ import { Header } from './Components/Header';
 import Home from './Components/Home/Home'
 import Profile from './Components/Profile/Profile';
 import { Footer } from './Components/Footer';
+import Cadastro from './Components/Cadastro/Cadastro';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} key='home'/>
             <Route path='/perfil/:user' element={<Profile />} key='profile'/>
+            <Route path='/cadastro' element={<Cadastro />} key='cadastro'/>
             {/* <Route path='*' element={<NotFound />} key='404'/> */}
           </Routes>
         </main>
