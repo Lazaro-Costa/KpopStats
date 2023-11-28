@@ -14,6 +14,7 @@ const Cadastro = () => {
       </section>
 
     </div>
+    //* Precisa criar os componentes de Select para Solista e ID.
   )
 }
 
