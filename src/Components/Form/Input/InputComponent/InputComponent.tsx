@@ -53,7 +53,6 @@ const InputComponent = ({ entity, setEntity }) => {
       <div className='w-full flex justify-center align-center'>
         <h1 className='text-3xl text-slate-200 block'>Pics</h1>
       </div>
-
       {keywordsBan &&
         keywordsBan.map((keyword, index) => (
           <RemoveItem

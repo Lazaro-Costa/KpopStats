@@ -2,9 +2,11 @@ import React from 'react';
 import FormContainer from '../Form/FormContainer/FormContainer';
 import FormGroup from '../Form/FormGroup/FormGroup';
 import Input from '../Form/Input/InputPlaceholder/Input';
-import { ICreateCompany } from '../../Interfaces/Interfaces.api';
+import { ICreateCompany, ICreatePic } from '../../Interfaces/Interfaces.api';
 import InputDate from '../Form/Input/InputDate/InputDate';
 import InputComponent from '../Form/Input/InputComponent/InputComponent';
+import Button from '../Button/Button';
+import { CreateEntity } from '../../utils/CreateEntity';
 
 const CadCompany = () => {
   const [company, setCompany] = React.useState<ICreateCompany>({
@@ -12,11 +14,40 @@ const CadCompany = () => {
     founding_date: '',
     headquarters: '',
     ceo: '',
-    moreInfo: '',
+    more_info: '',
     picsId: '',
+  });
+  const [pics, setPics] = React.useState<ICreatePic>({
+    name: '',
     urls_banner: [''],
     urls_profile: [''],
   });
+  const [load, setLoad] = React.useState(false);
+  const [erro, setErro] = React.useState<Error | Boolean>(false);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try{
+      setLoad(true);
+      setErro(false);
+      const data: ICreateCompany = {
+        ...company,
+        founding_date: new Date(company.founding_date).toISOString(),
+      }
+      const CreateCompany = new CreateEntity(data, pics);
+      const response = await CreateCompany.createEntity('http://localhost:3000/companys');
+      if(response){
+        console.log(response)
+      }
+    }catch(error){
+      console.log(error)
+      if(error instanceof Error) setErro(error);
+    }finally{
+      setLoad(false);
+    }
+}
+  if(load) return <p>Loading...</p>;
+  if(erro) return <p>{JSON.stringify(erro)}</p>;
   return (
     <FormContainer>
       <FormGroup>
@@ -32,7 +63,7 @@ const CadCompany = () => {
 
         <InputDate
           label={'Founding date'}
-          value={company.founding_date}
+          value={company.founding_date as string}
           onChange={({ target }) =>
             setCompany({ ...company, founding_date: target.value })
           }
@@ -56,26 +87,20 @@ const CadCompany = () => {
 
         <Input
           req
-          content={'Pics Id'}
-          type="number"
-          value={company.picsId}
-          onChange={({ target }) =>
-            setCompany({ ...company, picsId: +target.value })
-          }
-        />
-
-        <Input
-          req
           content={'More Info'}
-          value={company.moreInfo}
+          value={company.more_info}
           onChange={({ target }) =>
-            setCompany({ ...company, moreInfo: target.value })
+            setCompany({ ...company, more_info: target.value })
           }
         />
 
-        <InputComponent entity={company} setEntity={setCompany} />
+        <InputComponent entity={pics} setEntity={setPics} />
+
+        <div className='flex w-full justify-center items-center'>
+          <Button label={'Cadastrar'} onClick={(e) => handleClick(e)}/>
+        </div>
       </FormGroup>
-      <pre>{JSON.stringify(company, null, 2)}</pre>
+      <pre>{JSON.stringify({company, pics}, null, 2)}</pre>
     </FormContainer>
   );
 };

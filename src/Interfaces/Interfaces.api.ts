@@ -3,6 +3,14 @@ export interface ICreatePic{
   urls_profile?: string[]
   urls_banner?: string[]
 }
+export interface IGetPic{
+  id: number
+  createdAt: string
+  updatedAt: string
+  name: string
+  profiles: [{id:number, url:string}]
+  banners: [{id:number, url:string}]
+}
 export interface ICreateBanner{
   picId: number
   url: string[]
@@ -13,10 +21,10 @@ export interface ICreateProfile{
 }
 export interface ICreateCompany{
   name: string
-  founding_date?: string | null
+  founding_date?: string | null | Date
   headquarters?: string | null
   ceo?: string | null
-  moreInfo?: string | null
+  more_info?: string | null
   picsId?: number | null | string
   urls_banner?: ICreateBanner['url']
   urls_profile?: ICreateProfile['url']
