@@ -9,7 +9,11 @@ interface DropdownSelectProps {
   handleLoad: () => void;
 }
 
-const DropdownSelect: React.FC<DropdownSelectProps> = ({ options, onSelect, handleLoad }) => {
+const DropdownSelect: React.FC<DropdownSelectProps> = ({
+  options,
+  onSelect,
+  handleLoad,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<EntityGet | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -20,13 +24,22 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({ options, onSelect, hand
     setIsOpen(false);
     toggleDropdown();
   };
-
+  const handleLoadClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    event.stopPropagation(); // Impede que o evento se propague para o elemento pai (dropdown)
+    handleLoad();
+  };
   const toggleDropdown = () => {
-    setIsOpen((prevState) => !prevState);
+    setIsOpen(prevState => !prevState);
   };
 
   const closeDropdown = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -45,10 +58,12 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({ options, onSelect, hand
         className="bg-zinc-800 rounded-lg border border-blue-500 max-w-xs w-64 cursor-pointer select-none"
         onClick={toggleDropdown}
       >
-        <div className="py-2 px-4">{selectedOption ? selectedOption.name : 'Escolha uma opção'}</div>
+        <div className="py-2 px-4">
+          {selectedOption ? selectedOption.name : 'Escolha uma opção'}
+        </div>
         {isOpen && (
           <div className="absolute z-10 mt-2 w-full max-h-48 overflow-y-auto bg-zinc-900 rounded-lg border border-blue-500">
-            {options.map((option) => (
+            {options.map(option => (
               <div
                 key={option.id}
                 className="px-4 py-2 cursor-pointer hover:bg-blue-500 hover:text-white"
@@ -57,8 +72,11 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({ options, onSelect, hand
                 {option.name}
               </div>
             ))}
-            <div className='px-4 py-2 bg-zinc-700 w-full max-h-48 border-t border-blue-500 flex items-center justify-center'>
-              <button onClick={(e) => {e.preventDefault(); handleLoad()}}>Load More</button>
+            <div className=" bg-zinc-700 w-full max-h-48 border-t border-blue-500 flex items-center justify-center">
+              <button
+              onClick={handleLoadClick}
+              className='px-4 py-2 text-slate-200 w-full text-center'
+              >Load More</button>
             </div>
           </div>
         )}
