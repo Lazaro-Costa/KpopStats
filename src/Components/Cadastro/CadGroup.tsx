@@ -4,7 +4,10 @@ import FormGroup from '../Form/FormGroup/FormGroup';
 import Input from '../Form/Input/InputPlaceholder/Input';
 import InputDate from '../Form/Input/InputDate/InputDate';
 import InputComponent from '../Form/Input/InputComponent/InputComponent';
-import { ICreateGroup } from '../../Interfaces/Interfaces.api';
+import { ICreateGroup, ICreatePic, IGetCompanys } from '../../Interfaces/Interfaces.api';
+import DropdownSelect from '../Dropdown/Dropdown';
+import Button from '../Button/Button';
+import { CreateEntity } from '../../utils/CreateEntity';
 
 const CadGroup = () => {
   const [group, setGroup] = React.useState<ICreateGroup>({
@@ -12,11 +15,67 @@ const CadGroup = () => {
     companyId: '',
     fandom_name: '',
     debut_date: '',
-    moreInfo: '',
+    more_info: '',
     picsId: '',
+  });
+  const [page, setPage] = React.useState(1)
+  const [load, setLoad] = React.useState(false);
+  const [erro, setErro] = React.useState<Error | Boolean>(false);
+  const [companys, setCompanys] = React.useState<IGetCompanys[]>([])
+
+
+  React.useEffect(() => {
+    fetch(`http://localhost:3000/companys?page=${page}`)
+    .then(res => res.json())
+    .then((data) => {
+      if(data.length === 0) return
+      setCompanys([...companys, ...data])
+    })
+  }, [page])
+
+  const [pics, setPics] = React.useState<ICreatePic>({
+    name: '',
     urls_banner: [''],
     urls_profile: [''],
   });
+
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try{
+      setLoad(true);
+      setErro(false);
+      const data: ICreateGroup = {
+        ...group,
+        debut_date: new Date(group.debut_date).toISOString(),
+      }
+      const CreateGroup = new CreateEntity(data, pics);
+      const response = await CreateGroup.createEntity('http://localhost:3000/groups');
+      if(response){
+        console.log(response)
+        setGroup({
+          name: '',
+          companyId: '',
+          fandom_name: '',
+          debut_date: '',
+          more_info: '',
+          picsId: '',
+        })
+        setPics({
+          name: '',
+          urls_banner: [''],
+          urls_profile: [''],
+        })
+      }
+    }catch(error){
+      console.log(error)
+      if(error instanceof Error) setErro(error);
+    }finally{
+      setLoad(false);
+    }
+  }
+  if(load) console.log('Loading...')
+  if(erro) console.log(erro)
   return (
     <FormContainer>
       <FormGroup>
@@ -47,38 +106,25 @@ const CadGroup = () => {
           }
         />
 
-        <Input
-          req
-          content={'group ID'}
-          type="number"
-          value={group.companyId}
-          onChange={({ target }) =>
-            setGroup({ ...group, companyId: +target.value })
-          }
-        />
-
-        <Input
-          req
-          content={'Pics Id'}
-          type="number"
-          value={group.picsId}
-          onChange={({ target }) =>
-            setGroup({ ...group, picsId: +target.value })
-          }
-        />
+        <DropdownSelect options={companys} onSelect={(id) => setGroup({ ...group, companyId: id })} handleLoad={() => setPage(page + 1)}/>
 
         <Input
           req
           content={'More Info'}
-          value={group.moreInfo}
+          value={group.more_info}
           onChange={({ target }) =>
-            setGroup({ ...group, moreInfo: target.value })
+            setGroup({ ...group, more_info: target.value })
           }
         />
 
-        <InputComponent entity={group} setEntity={setGroup} />
+        <InputComponent entity={pics} setEntity={setPics} />
+
+        <div className='flex w-full justify-center items-center'>
+          <Button label={'Cadastrar'} onClick={(e) => handleClick(e)}/>
+        </div>
+
       </FormGroup>
-      <pre>{JSON.stringify(group, null, 2)}</pre>
+      <pre>{JSON.stringify({group, pics}, null, 2)}</pre>
     </FormContainer>
   );
 };

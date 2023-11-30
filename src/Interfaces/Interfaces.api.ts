@@ -29,12 +29,16 @@ export interface ICreateCompany{
   urls_banner?: ICreateBanner['url']
   urls_profile?: ICreateProfile['url']
 }
+export interface IGetCompanys{
+  id: number
+  name: string
+}
 export interface ICreateGroup{
   name: string
   companyId: number | null | string
   fandom_name?: string | null
   debut_date?: string | null
-  moreInfo?: string | null
+  more_info?: string | null
   picsId?: number | null | string
   urls_banner?: ICreateBanner['url']
   urls_profile?: ICreateProfile['url']
@@ -47,7 +51,7 @@ export interface ICreateIdol{
   foreign_name?: string | null
   nationality?: string | null
   date_birth?: string | null
-  moreInfo?: string | null
+  more_info?: string | null
   groupId?: number | string | null
   picsId?: string | null
   urls_banner?: ICreateBanner['url']

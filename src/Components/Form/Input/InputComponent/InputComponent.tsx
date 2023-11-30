@@ -50,9 +50,22 @@ const InputComponent = ({ entity, setEntity }) => {
   };
   return (
     <div className="flex flex-wrap items-center justify-center gap-3 bg-zinc-900 p-2 rounded-lg">
-      <div className='w-full flex justify-center align-center'>
-        <h1 className='text-3xl text-slate-200 block'>Pics</h1>
+      <div className="w-full flex justify-center align-center">
+        <h1 className="text-3xl text-slate-200 block">Pics</h1>
       </div>
+      {keywordsBan && keywordsBan.length > 0 && (
+        <div className="w-full flex justify-end align-top">
+          <button
+            className="p-1 bg-zinc-500 rounded-sm hover:p-1 hover:m-0 hover:bg-red-500 hover:rounded-2xl transition-all transition-duration-300"
+            onClick={e => {
+              e.preventDefault();
+              setKeywordsBan([]);
+            }}
+          >
+            Clear
+          </button>
+        </div>
+      )}
       {keywordsBan &&
         keywordsBan.map((keyword, index) => (
           <RemoveItem
@@ -70,6 +83,19 @@ const InputComponent = ({ entity, setEntity }) => {
         onChange={handleBan}
         onKeyDown={handleBanKey}
       />
+      {keywordsProf && keywordsProf.length > 0 && (
+        <div className="w-full flex justify-end align-top">
+          <button
+            className="p-1 bg-zinc-500 rounded-sm hover:p-1 hover:m-0 hover:bg-red-500 hover:rounded-2xl transition-all transition-duration-300"
+            onClick={e => {
+              e.preventDefault();
+              setKeywordsProf([]);
+            }}
+          >
+            Clear
+          </button>
+        </div>
+      )}
       {keywordsProf &&
         keywordsProf.map((keyword, index) => (
           <RemoveItem

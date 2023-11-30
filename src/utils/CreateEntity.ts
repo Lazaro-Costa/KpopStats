@@ -11,6 +11,7 @@ export class CreateEntity{
       ...this.entity,
       picsId: id,
     }
+    console.log("Dados enviados: ",data)
     const response = await fetch(url, {
       method: 'POST',
       headers: {
