@@ -1,4 +1,29 @@
-export const groups = [
+function convertToIdol(data: IGetIdol): Idol {
+  return {
+    id: data.id,
+    name: data.name,
+    icon: data.icon,
+  };
+
+}
+interface Member {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+interface Groups {
+  id: string;
+  profile: string;
+  group: string;
+  fandom: string;
+  empresa: string;
+  url: string;
+  logoUrl: string;
+  members: Member[];
+}
+
+export const groups:Groups[] = [
   {
     id: 'sadasd123',
     profile: 'itzy',
