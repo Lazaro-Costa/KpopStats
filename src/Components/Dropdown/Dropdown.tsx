@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IGetCompanys } from '../../Interfaces/Interfaces.api';
+import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
 
-type EntityGet = IGetCompanys;
+type EntityGet = IGetCompanys | IGetGroups;
 
 interface DropdownSelectProps {
   options: EntityGet[];
-  onSelect: (id: number) => void;
+  onSelect: (option: number) => void;
   handleLoad: () => void;
 }
 

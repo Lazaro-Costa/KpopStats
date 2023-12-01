@@ -18,6 +18,11 @@ const CadGroup = () => {
     more_info: '',
     picsId: '',
   });
+  const [pics, setPics] = React.useState<ICreatePic>({
+    name: '',
+    urls_banner: [''],
+    urls_profile: [''],
+  });
   const [page, setPage] = React.useState(1)
   const [load, setLoad] = React.useState(false);
   const [erro, setErro] = React.useState<Error | Boolean>(false);
@@ -32,13 +37,6 @@ const CadGroup = () => {
       setCompanys([...companys, ...data])
     })
   }, [page])
-
-  const [pics, setPics] = React.useState<ICreatePic>({
-    name: '',
-    urls_banner: [''],
-    urls_profile: [''],
-  });
-
 
   const handleClick = async (e) => {
     e.preventDefault();

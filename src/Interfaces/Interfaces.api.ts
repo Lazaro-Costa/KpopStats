@@ -34,6 +34,7 @@ export interface IGetCompanys{
   name: string
 }
 export interface ICreateGroup{
+  id:number
   name: string
   companyId: number | null | string
   fandom_name?: string | null
@@ -43,10 +44,19 @@ export interface ICreateGroup{
   urls_banner?: ICreateBanner['url']
   urls_profile?: ICreateProfile['url']
 }
+export interface IGetGroups{
+  id: number
+  name: string
+  fandom_name: string
+  companyId: number
+  company: IGetCompanys
+  createdAt: string
+  updatedAt: string
+}
 export interface ICreateIdol{
   name: string
-  companyId: string
-  solist: string
+  companyId: string | number
+  solist: string | boolean
   korean_name?: string | null
   foreign_name?: string | null
   nationality?: string | null
