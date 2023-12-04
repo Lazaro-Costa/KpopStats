@@ -9,8 +9,8 @@ const CardBackComponent = ({ data }: { data: IDataIdol }) => {
       <div className={style.containerIcon}>
         {data.members.map((member) => {
           return (
-            <div className={style.Icon}>
-              <IconContainer key={member.id} url={member.icon} />
+            <div key={member.id} className={style.Icon}>
+              <IconContainer url={member.icon} />
               <LabelSmall text={member.name} />
             </div>
           );

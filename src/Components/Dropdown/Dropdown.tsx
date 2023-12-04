@@ -5,7 +5,7 @@ type EntityGet = IGetCompanys | IGetGroups;
 
 interface DropdownSelectProps {
   options: EntityGet[];
-  onSelect: (option: number) => void;
+  onSelect: (option: EntityGet) => void;
   handleLoad: () => void;
 }
 
@@ -20,7 +20,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
 
   const handleOptionClick = (option: EntityGet) => {
     setSelectedOption(option);
-    onSelect(option.id);
+    onSelect(option);
     setIsOpen(false);
     toggleDropdown();
   };

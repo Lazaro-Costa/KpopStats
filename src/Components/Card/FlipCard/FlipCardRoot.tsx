@@ -15,7 +15,7 @@ const FlipCardRoot = ({ data }: { data: IDataIdol }) => {
     <div className={style.flipCard}>
       <div className={`${style.flipCardInner} ${isActive ? style.active : ''}`}>
         <div className={style.flipCardFront}>
-          <CardFront.Component key={data.id} data={data} />
+          <CardFront.Component key={data.id+'front'} data={data} />
 
           <span className={`${style.spanBtnFwd}`} onClick={toggleCard}>
             <Arrow.Forward />
@@ -23,7 +23,7 @@ const FlipCardRoot = ({ data }: { data: IDataIdol }) => {
         </div>
 
         <div className={style.flipCardBack}>
-          <CardBack.Component key={data.id} data={data} />
+          <CardBack.Component key={data.id+'back'} data={data} />
 
           <span className={`${style.spanBtnBwd}`} onClick={toggleCard}>
             <Arrow.Backward />

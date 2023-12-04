@@ -19,12 +19,31 @@
 
   border-radius: 8px;
 
+  overflow: scroll;
 
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.1px);
   -webkit-backdrop-filter: blur(5.1px);
   border: 1px solid rgba(0, 0, 0, 0.17);
+}
+.cardInner::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cardInner::-webkit-scrollbar-track {
+  background: invisible;        /* color of the tracking area */
+}
+.cardInner::-webkit-scrollbar-button {
+  display: none;
+}
+.cardInner::-webkit-scrollbar-corner {
+  background: invisible;        /* color of the tracking area */
+}
+.cardInner::-webkit-scrollbar-thumb {
+  background-color: transparent;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid rgba(128, 128, 128, 0.3);  /* creates padding around scroll thumb */
 }
 
 /* .card:hover {
@@ -39,7 +58,7 @@
   border-radius: 35% 30% 75% 30% / 49% 30% 70% 51%;
   position: absolute;
   animation: move-up6 2s ease-in infinite alternate-reverse;
-  
+
 }
 .circle:nth-child(1) {
   top: -5px;

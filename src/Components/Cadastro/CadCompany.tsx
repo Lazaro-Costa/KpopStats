@@ -38,6 +38,19 @@ const CadCompany = () => {
       const response = await CreateCompany.createEntity('http://localhost:3000/companys');
       if(response){
         console.log(response)
+        setCompany({
+          name: '',
+          founding_date: '',
+          headquarters: '',
+          ceo: '',
+          more_info: '',
+          picsId: '',
+        })
+        setPics({
+          name: '',
+          urls_banner: [''],
+          urls_profile: [''],
+        })
       }
     }catch(error){
       console.log(error)
