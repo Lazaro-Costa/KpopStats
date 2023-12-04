@@ -4,10 +4,15 @@ import FormGroup from '../Form/FormGroup/FormGroup';
 import Input from '../Form/Input/InputPlaceholder/Input';
 import InputDate from '../Form/Input/InputDate/InputDate';
 import InputComponent from '../Form/Input/InputComponent/InputComponent';
-import { ICreateGroup, ICreatePic, IGetCompanys } from '../../Interfaces/Interfaces.api';
+import {
+  ICreateGroup,
+  ICreatePic,
+  IGetCompanys,
+} from '../../Interfaces/Interfaces.api';
 import DropdownSelect from '../Dropdown/Dropdown';
 import Button from '../Button/Button';
 import { CreateEntity } from '../../utils/CreateEntity';
+import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
 
 const CadGroup = () => {
   const [group, setGroup] = React.useState<ICreateGroup>({
@@ -23,34 +28,33 @@ const CadGroup = () => {
     urls_banner: [''],
     urls_profile: [''],
   });
-  const [page, setPage] = React.useState(1)
+  const [page, setPage] = React.useState(1);
   const [load, setLoad] = React.useState(false);
   const [erro, setErro] = React.useState<Error | Boolean>(false);
-  const [companys, setCompanys] = React.useState<IGetCompanys[]>([])
+  const [companys, setCompanys] = React.useState<IGetCompanys[]>([]);
 
+  FetchInfoWithPagination({
+    uri: 'companys',
+    entity: companys,
+    page,
+    setEntity: setCompanys,
+  });
 
-  React.useEffect(() => {
-    fetch(`http://localhost:3000/companys?page=${page}`)
-    .then(res => res.json())
-    .then((data) => {
-      if(data.length === 0) return
-      setCompanys([...companys, ...data])
-    })
-  }, [page])
-
-  const handleClick = async (e) => {
+  const handleClick = async e => {
     e.preventDefault();
-    try{
+    try {
       setLoad(true);
       setErro(false);
       const data: ICreateGroup = {
         ...group,
         debut_date: new Date(group.debut_date).toISOString(),
-      }
+      };
       const CreateGroup = new CreateEntity(data, pics);
-      const response = await CreateGroup.createEntity('http://localhost:3000/groups');
-      if(response){
-        console.log(response)
+      const response = await CreateGroup.createEntity(
+        'http://localhost:3000/groups',
+      );
+      if (response) {
+        console.log(response);
         setGroup({
           name: '',
           companyId: '',
@@ -58,22 +62,22 @@ const CadGroup = () => {
           debut_date: '',
           more_info: '',
           picsId: '',
-        })
+        });
         setPics({
           name: '',
           urls_banner: [''],
           urls_profile: [''],
-        })
+        });
       }
-    }catch(error){
-      console.log(error)
-      if(error instanceof Error) setErro(error);
-    }finally{
+    } catch (error) {
+      console.log(error);
+      if (error instanceof Error) setErro(error);
+    } finally {
       setLoad(false);
     }
-  }
-  if(load) console.log('Loading...')
-  if(erro) console.log(erro)
+  };
+  if (load) console.log('Loading...');
+  if (erro) console.log(erro);
   return (
     <FormContainer>
       <FormGroup>
@@ -82,9 +86,7 @@ const CadGroup = () => {
           req
           content={'Nome'}
           value={group.name}
-          onChange={({ target }) =>
-            setGroup({ ...group, name: target.value })
-          }
+          onChange={({ target }) => setGroup({ ...group, name: target.value })}
         />
 
         <Input
@@ -103,9 +105,16 @@ const CadGroup = () => {
             setGroup({ ...group, debut_date: target.value })
           }
         />
-
-        <DropdownSelect options={companys} onSelect={(id) => setGroup({ ...group, companyId: id })} handleLoad={() => setPage(page + 1)}/>
-
+        <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
+          <h1 className="text-slate-200 text-3xl">Company ID</h1>
+          <DropdownSelect
+            options={companys}
+            onSelect={company =>
+              setGroup(prevGroup => ({ ...prevGroup, companyId: company.id }))
+            }
+            handleLoad={() => setPage(page + 1)}
+          />
+        </div>
         <Input
           req
           content={'More Info'}
@@ -117,12 +126,11 @@ const CadGroup = () => {
 
         <InputComponent entity={pics} setEntity={setPics} />
 
-        <div className='flex w-full justify-center items-center'>
-          <Button label={'Cadastrar'} onClick={(e) => handleClick(e)}/>
+        <div className="flex w-full justify-center items-center">
+          <Button label={'Cadastrar'} onClick={e => handleClick(e)} />
         </div>
-
       </FormGroup>
-      <pre>{JSON.stringify({group, pics}, null, 2)}</pre>
+      <pre>{JSON.stringify({ group, pics }, null, 2)}</pre>
     </FormContainer>
   );
 };

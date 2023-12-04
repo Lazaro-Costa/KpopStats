@@ -13,7 +13,8 @@ import InputComponent from '../Form/Input/InputComponent/InputComponent';
 import { CreateEntity } from '../../utils/CreateEntity';
 import DropdownSelect from '../Dropdown/Dropdown';
 import Button from '../Button/Button';
-// TODO: Melhorar o componente para pegar o ID da Company assim que o grupo for selecionado.
+import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
+
 const CadIdol = () => {
   const [idol, setIdol] = React.useState<ICreateIdol>({
     name: '',
@@ -35,34 +36,25 @@ const CadIdol = () => {
 
   const [page, setPage] = React.useState(1);
   const [pageCo, setPageCo] = React.useState(1);
-  const [load, setLoad] = React.useState(false);
-  const [erro, setErro] = React.useState<Error | Boolean>(false);
   const [groups, setGroups] = React.useState<IGetGroups[]>([]);
   const [companys, setCompanys] = React.useState<IGetCompanys[]>([]);
 
-  React.useEffect(() => {
-    fetch(`http://localhost:3000/groups?page=${page}`)
-        .then(res => res.json())
-        .then((data: IGetGroups[]) => {
-          if (data.length === 0) return;
-          setGroups([...groups, ...data]);
-        })
-  }, [page]);
-
-  React.useEffect(() => {
-    fetch(`http://localhost:3000/companys?page=${pageCo}`)
-        .then(res => res.json())
-        .then((data: IGetCompanys[]) => {
-          if (data.length === 0) return;
-          setCompanys([...companys, ...data]);
-        })
-  }, [pageCo]);
+  FetchInfoWithPagination({
+    uri: 'groups',
+    entity: groups,
+    page,
+    setEntity: setGroups,
+  });
+  FetchInfoWithPagination({
+    uri: 'companys',
+    entity: companys,
+    page: pageCo,
+    setEntity: setCompanys,
+  });
 
   const handleClick = async e => {
     e.preventDefault();
     try {
-      setLoad(true);
-      setErro(false);
       const data: ICreateIdol = {
         ...idol,
         date_birth: new Date(idol.date_birth).toISOString(),
@@ -93,17 +85,57 @@ const CadIdol = () => {
       }
     } catch (error) {
       console.log(error);
-      if (error instanceof Error) setErro(error);
-    } finally {
-      setLoad(false);
     }
   };
-  if (load) console.log('Loading...');
-  if (erro) console.log(erro);
+
   return (
     <FormContainer>
       <FormGroup>
         <h1 className="text-3xl text-slate-200">Idol</h1>
+
+        <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
+          <h1 className="text-slate-200 text-3xl">Solist?</h1>
+          <DropdownSelect
+            options={[
+              { id: 0, name: 'false' },
+              { id: 1, name: 'true' },
+            ]}
+            onSelect={op =>
+              setIdol(prevIdol => ({ ...prevIdol, solist: Boolean(op.id) }))
+            }
+            handleLoad={() => null}
+          />
+        </div>
+        {idol.solist === false && (
+          <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
+            <h1 className="text-slate-200 text-3xl">Groups</h1>
+            <DropdownSelect
+              options={groups}
+              onSelect={group =>
+                setIdol(prevIdol => ({
+                  ...prevIdol,
+                  groupId: group.id,
+                  companyId: group.companyId,
+                }))
+              }
+              handleLoad={() => setPage(page + 1)}
+            />
+          </div>
+        )}
+
+        {idol.solist === true && (
+          <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
+            <h1 className="text-slate-200 text-3xl">Companys</h1>
+            <DropdownSelect
+              options={companys}
+              onSelect={company =>
+                setIdol(prevIdol => ({ ...prevIdol, companyId: company.id }))
+              }
+              handleLoad={() => setPageCo(pageCo + 1)}
+            />
+          </div>
+        )}
+
         <Input
           req
           content={'Nome'}
@@ -128,11 +160,6 @@ const CadIdol = () => {
           }
         />
 
-        <DropdownSelect
-          options={[{id:0, name: 'false'}, {id:1, name: 'true'}]}
-          onSelect={(id) => setIdol({ ...idol, solist: Boolean(id) })}
-          handleLoad={() => null}
-        />
 
         <Input
           req
@@ -160,27 +187,7 @@ const CadIdol = () => {
             setIdol({ ...idol, more_info: target.value })
           }
         />
-        {idol.solist === false && (
-          <div className='w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center'>
-          <h1 className='text-slate-200 text-3xl'>Groups</h1>
-          <DropdownSelect
-            options={groups}
-            onSelect={id => setIdol({ ...idol, groupId: id })}
-            handleLoad={() => setPage(page + 1)}
-          />
-        </div>
-        )}
 
-        {idol.solist === true && (
-          <div className='w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center'>
-          <h1 className='text-slate-200 text-3xl'>Companys</h1>
-        <DropdownSelect
-          options={companys}
-          onSelect={id => setIdol({ ...idol, companyId: id })}
-          handleLoad={() => setPageCo(pageCo + 1)}
-        />
-        </div>
-        )}
 
         <InputComponent entity={pics} setEntity={setPics} />
 

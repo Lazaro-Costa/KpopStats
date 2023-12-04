@@ -1,9 +1,107 @@
-function convertToIdol(data: IGetIdol): Idol {
-  return {
-    id: data.id,
-    name: data.name,
-    icon: data.icon,
-  };
+interface Member {
+  id: string
+  name: string
+  icon: string
+}
+export interface IGroupCard{
+  id: string
+  profile: string
+  group: string
+  fandom: string
+  empresa: string
+  url: string
+  logoUrl: string
+  members: Member[]
+}
+export interface IGroupRaw {
+  id: number
+  createdAt: string
+  updatedAt: string
+  name: string
+  fandom_name: string
+  debut_date: string
+  more_info: string
+  companyId: number
+  company: Company
+  picsId: number
+  pictures: Pictures
+  idols: Idol[]
+}
+interface Company{
+  id: number
+  name: string
+}
+
+ interface Pictures {
+  id: number
+  name: string
+  banners: Banner[]
+  profiles: Profile[]
+}
+
+ interface Banner {
+  id: number
+  url: string
+}
+
+ interface Profile {
+  id: number
+  url: string
+}
+
+interface Idol {
+  id: number
+  createdAt: string
+  updatedAt: string
+  name: string
+  korean_name: string
+  foreign_name: string
+  nationality: string
+  date_birth: string
+  solist: boolean
+  more_info: string
+  companyId: number
+  groupId: number
+  picsId: number
+  pictures: Pictures2
+}
+
+interface Pictures2 {
+  id: number
+  name: string
+  banners: Banner2[]
+  profiles: Profile2[]
+}
+
+interface Banner2 {
+  id: number
+  url: string
+}
+interface Profile2 {
+  id: number
+  url: string
+}
+
+export function convertToIdol(data: IGroupRaw[]): IGroupCard[] {
+  if(data.length === 0) return []
+  return data.map((data) => {
+    return {
+      id: data.id.toString(),
+      profile: data.pictures.profiles[0].url,
+      group: data.name,
+      fandom: data.fandom_name,
+      empresa: data.company.name,
+      url: data.pictures.profiles[0].url,
+      logoUrl: data.pictures.banners[0].url,
+      members: data.idols.map((idol) => {
+        return {
+          id: idol.id.toString(),
+          name: idol.name,
+          icon: idol.pictures.profiles[0].url,
+        }
+      }),
+    }
+  })
 
 }
 interface Member {
@@ -12,18 +110,18 @@ interface Member {
   icon: string;
 }
 
-interface Groups {
-  id: string;
-  profile: string;
-  group: string;
-  fandom: string;
-  empresa: string;
-  url: string;
-  logoUrl: string;
-  members: Member[];
-}
+// interface Groups {
+//   id: string;
+//   profile: string;
+//   group: string;
+//   fandom: string;
+//   empresa: string;
+//   url: string;
+//   logoUrl: string;
+//   members: Member[];
+// }
 
-export const groups:Groups[] = [
+export const groups:IGroupCard[] = [
   {
     id: 'sadasd123',
     profile: 'itzy',

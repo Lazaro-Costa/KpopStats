@@ -1,8 +1,10 @@
 .containerIcon{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
 
+  max-height: fit-content;
+  justify-content: space-evenly;
+  align-items: flex-start;
   padding: 10px;
   gap: 1rem;
 }
@@ -12,5 +14,4 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  justify-content: space-between;
 }

@@ -32,9 +32,10 @@ export interface ICreateCompany{
 export interface IGetCompanys{
   id: number
   name: string
+  companyId?: number
 }
 export interface ICreateGroup{
-  id:number
+  id?:number
   name: string
   companyId: number | null | string
   fandom_name?: string | null
@@ -67,5 +68,4 @@ export interface ICreateIdol{
   urls_banner?: ICreateBanner['url']
   urls_profile?: ICreateProfile['url']
 }
-
 
