@@ -1,13 +1,12 @@
 import React from 'react';
-import { IDataIdol } from '../../../Interfaces/DataIdol';
 import { CardBack } from '../CardBack';
 import { CardFront } from '../CardFront';
 import style from './CSS/FlipCard.module.css';
 import { Arrow } from '../../Arrow';
+import { IGroupCard } from '../../../DataMock/DataIdol';
 
-const FlipCardRoot = ({ data }: { data: IDataIdol }) => {
+const FlipCardRoot = ({ data }: { data: IGroupCard }) => {
   const [isActive, setIsActive] = React.useState(false);
-
   const toggleCard = () => {
     setIsActive(!isActive);
   };
