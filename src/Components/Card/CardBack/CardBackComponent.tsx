@@ -1,9 +1,9 @@
 import { CardBack } from '.';
-import { IDataIdol } from '../../../Interfaces/DataIdol';
+import { IGroupCard } from '../../../DataMock/DataIdol';
 import IconContainer from '../../Icon/IconContainer';
 import LabelSmall from '../../Label/LabelSmall';
 import style from './CSS/CardBackComponent.module.css';
-const CardBackComponent = ({ data }: { data: IDataIdol }) => {
+const CardBackComponent = ({ data }: { data: IGroupCard }) => {
   return (
     <CardBack.Container>
       <div className={style.containerIcon}>

@@ -11,7 +11,27 @@
 body{
   padding: 4rem 0;
   margin: 0;
+  overflow: scroll;
 }
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: invisible;        /* color of the tracking area */
+}
+body::-webkit-scrollbar-button {
+  display: none;
+}
+body::-webkit-scrollbar-corner {
+  background: invisible;        /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: transparent;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid rgba(128, 128, 128, 0.3);  /* creates padding around scroll thumb */
+}
+
 .container{
   max-width: 50rem;
   padding: 0 1rem;
@@ -22,6 +42,7 @@ body{
   flex-direction: column;
   min-height: calc(100vh + 4rem);
 }
+
 .AppBody{
   padding: 2rem 4rem;
   flex: 1;

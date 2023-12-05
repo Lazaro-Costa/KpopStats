@@ -1,6 +1,8 @@
-import { profiles } from "../../DataMock/DataIdol"
+import { IGetGroups } from "../../Interfaces/Interfaces.api"
 
-export const fetchApi = (uri: string) => {
-  const profile = profiles.find(profile => profile.profile === uri);
-  return profile;
+export const fetchApi = async (uri: string): Promise<IGetGroups> => {
+  return fetch(`http://localhost:3000/groups/${uri}`)
+  .then(res => res.json()).then(data => {
+    return data
+  })
 }

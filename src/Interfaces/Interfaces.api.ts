@@ -45,7 +45,7 @@ export interface ICreateGroup{
   urls_banner?: ICreateBanner['url']
   urls_profile?: ICreateProfile['url']
 }
-export interface IGetGroups{
+export interface IGetGroupsBKP{
   id: number
   name: string
   fandom_name: string
@@ -69,3 +69,85 @@ export interface ICreateIdol{
   urls_profile?: ICreateProfile['url']
 }
 
+export interface InfoGroups {
+  Name: string
+  "Fandom Name": string
+  Debut: string
+  Company: string
+}
+
+export interface IGetGroups {
+  id: number
+  createdAt: string
+  updatedAt: string
+  name: string
+  fandom_name: string
+  debut_date: string
+  more_info: string
+  companyId: number
+  picsId: number
+  company: Company
+  pictures: Pictures
+  idols: Idol[]
+}
+
+export interface Company {
+  id: number
+  name: string
+}
+
+export interface Pictures {
+  id: number
+  name: string
+  banners: Banner[]
+  profiles: Profile[]
+}
+
+export interface Banner {
+  id: number
+  url: string
+}
+
+export interface Profile {
+  id: number
+  url: string
+}
+
+export interface Idol {
+  id: number
+  createdAt: string
+  updatedAt: string
+  name: string
+  korean_name: string
+  foreign_name: string
+  nationality: string
+  date_birth: string
+  solist: boolean
+  more_info: string
+  companyId: number
+  groupId: number
+  picsId: number
+  company: Company
+  group: AuxGroupIdol
+  pictures: Pictures
+}
+interface AuxGroupIdol{
+  id: number
+  name: string
+}
+export interface Pictures {
+  id: number
+  name: string
+  banners: Banner[]
+  profiles: Profile[]
+}
+
+export interface Banner {
+  id: number
+  url: string
+}
+
+export interface Profile {
+  id: number
+  url: string
+}
