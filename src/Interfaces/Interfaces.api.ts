@@ -1,3 +1,6 @@
+import { IGroupRaw } from "../DataMock/DataIdol"
+
+export type IGetEntities = IGetGroups | IGetPic | IGetCompanys | IGroupRaw
 export interface ICreatePic{
   name: string
   urls_profile?: string[]

@@ -14,6 +14,8 @@ import { CreateEntity } from '../../utils/CreateEntity';
 import DropdownSelect from '../Dropdown/Dropdown';
 import Button from '../Button/Button';
 import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
+import { apiBase } from '../Helper/Variables';
+import Loading from '../Loading/Loading';
 
 const CadIdol = () => {
   const [idol, setIdol] = React.useState<ICreateIdol>({
@@ -38,7 +40,10 @@ const CadIdol = () => {
   const [pageCo, setPageCo] = React.useState(1);
   const [groups, setGroups] = React.useState<IGetGroups[]>([]);
   const [companys, setCompanys] = React.useState<IGetCompanys[]>([]);
-
+  const [load, setLoad] = React.useState(false);
+  const [erro, setErro] = React.useState<Error | Boolean>(false);
+  const [result, setResult] = React.useState<string>('');
+  const [showOriginalButton, setShowOriginalButton] = React.useState(true);
   FetchInfoWithPagination({
     uri: 'groups',
     entity: groups,
@@ -55,16 +60,17 @@ const CadIdol = () => {
   const handleClick = async e => {
     e.preventDefault();
     try {
+      setLoad(true);
+      setErro(false);
       const data: ICreateIdol = {
         ...idol,
         date_birth: new Date(idol.date_birth).toISOString(),
       };
       const CreateGroup = new CreateEntity(data, pics);
-      const response = await CreateGroup.createEntity(
-        'http://localhost:3000/idols',
-      );
+      const response = await CreateGroup.createEntity(`${apiBase}/idols`);
       if (response) {
-        console.log(response);
+        setLoad(false);
+        setResult('Deu certo!');
         setIdol({
           name: '',
           companyId: '',
@@ -85,9 +91,35 @@ const CadIdol = () => {
       }
     } catch (error) {
       console.log(error);
+    }finally {
+      setLoad(false);
     }
   };
+  const handleLoad = () => {
+    if (load) {
+      return <Loading />;
+    } else if (erro !== false) {
+      return <pre>{JSON.stringify(erro)}</pre>;
+    } else if (result !== '' && showOriginalButton) {
+      // Mostra o botão desabilitado temporariamente por 2000ms
+      setTimeout(() => {
+        setShowOriginalButton(false);
+      }, 2000);
 
+      return <Button label={result} disabled />;
+    } else {
+      // Se showOriginalButton for false, retorna o botão original
+      return (
+        <Button
+          label={'Cadastrar'}
+          onClick={(e) => {
+            handleClick(e);
+            setShowOriginalButton(true); // Restaura o estado do botão original
+          }}
+        />
+      );
+    }
+  };
   return (
     <FormContainer>
       <FormGroup>
@@ -160,7 +192,6 @@ const CadIdol = () => {
           }
         />
 
-
         <Input
           req
           content={'Foreign Name'}
@@ -188,11 +219,10 @@ const CadIdol = () => {
           }
         />
 
-
         <InputComponent entity={pics} setEntity={setPics} />
 
         <div className="flex w-full justify-center items-center">
-          <Button label={'Cadastrar'} onClick={e => handleClick(e)} />
+          {handleLoad()}
         </div>
       </FormGroup>
       <pre>{JSON.stringify({ idol, pics }, null, 2)}</pre>

@@ -1,3 +1,4 @@
+import { apiBase } from "../Components/Helper/Variables";
 import { ICreateCompany, ICreateGroup, ICreateIdol, ICreatePic, IGetPic } from "../Interfaces/Interfaces.api";
 
 type Entity = ICreateCompany | ICreateGroup | ICreateIdol
@@ -6,7 +7,7 @@ export class CreateEntity{
   constructor(public entity: Entity, public pics: ICreatePic) {
   }
   public async createEntity(url: string) {
-    const { id } = await this.createPic('http://localhost:3000/pics');
+    const { id } = await this.createPic(`${apiBase}/pics`);
     const data = {
       ...this.entity,
       picsId: id,

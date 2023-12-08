@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
+import Logo from '../Logo/Logo';
 const HeaderRoot: React.FC = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -24,8 +25,12 @@ const HeaderRoot: React.FC = () => {
         visible ? 'opacity-100' : 'opacity-0 -top-16'
       }`}
     >
-      <div className="h-full flex items-center justify-center">
-        Header
+      <div className="h-full flex p-2">
+        <nav className='self-start'>
+          <Link to="/" aria-label='KpopStats - Home'>
+            <Logo />
+          </Link>
+        </nav>
       </div>
     </header>
   );

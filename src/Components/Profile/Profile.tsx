@@ -5,6 +5,9 @@ import PG_Container from '../ProfileGroup/PG_Container';
 import { useParams } from 'react-router-dom';
 import { IGetGroups, InfoGroups } from '../../Interfaces/Interfaces.api';
 import IsGroup from './ObjectInfo/IsGroup';
+import { apiBase } from '../Helper/Variables';
+import Head from '../Helper/Head';
+import Loading from '../Loading/Loading';
 
 const Profile = () => {
   const {user} = useParams();
@@ -35,7 +38,7 @@ const Profile = () => {
   }
 
   React.useEffect(() => {
-    fetch(`http://localhost:3000/groups/${user}`)
+    fetch(`${apiBase}/groups/${user}`)
     .then(res => res.json())
     .then(groups => {
       setData(groups as IGetGroups)
@@ -47,9 +50,10 @@ const Profile = () => {
   }, []);
 
 
-  if(!data.name) return <h1 className='text-slate-200'>Carregando</h1>;
+  if(!data.name) return <Loading/>;
   return (
     <PG.Component key={data.id}>
+      <Head title={data.name} description={data.name + ' Profile'}/>
       <PG_Container>
         <div key={data.pictures.profiles[0].id} className="max-w-4xl rounded-lg overflow-hidden shadow-lg m-4">
           <img loading='lazy'
@@ -63,7 +67,7 @@ const Profile = () => {
             <h1 className='text-slate-200 bg-zinc-900 w-full text-center'>Background</h1>
             <IsGroup data={info} />
           </div>
-          
+
           {data.more_info && (<div className={`flex flex-col items-center w-[400px] gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}>
             <h1 className='text-slate-200 bg-zinc-900 w-full text-center'>More Info</h1>
             <IsGroup data={converterStringParaObjeto(data.more_info)} />

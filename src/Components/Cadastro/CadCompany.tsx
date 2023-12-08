@@ -7,6 +7,8 @@ import InputDate from '../Form/Input/InputDate/InputDate';
 import InputComponent from '../Form/Input/InputComponent/InputComponent';
 import Button from '../Button/Button';
 import { CreateEntity } from '../../utils/CreateEntity';
+import { apiBase } from '../Helper/Variables';
+import Loading from '../Loading/Loading';
 
 const CadCompany = () => {
   const [company, setCompany] = React.useState<ICreateCompany>({
@@ -24,20 +26,22 @@ const CadCompany = () => {
   });
   const [load, setLoad] = React.useState(false);
   const [erro, setErro] = React.useState<Error | Boolean>(false);
+  const [result, setResult] = React.useState<string>('');
 
-  const handleClick = async (e) => {
+  const handleClick = async e => {
     e.preventDefault();
-    try{
+    try {
       setLoad(true);
       setErro(false);
       const data: ICreateCompany = {
         ...company,
         founding_date: new Date(company.founding_date).toISOString(),
-      }
+      };
       const CreateCompany = new CreateEntity(data, pics);
-      const response = await CreateCompany.createEntity('http://localhost:3000/companys');
-      if(response){
-        console.log(response)
+      const response = await CreateCompany.createEntity(`${apiBase}/companys`);
+      if (response.ok) {
+        setResult('Deu certo!');
+        console.log(response);
         setCompany({
           name: '',
           founding_date: '',
@@ -45,22 +49,31 @@ const CadCompany = () => {
           ceo: '',
           more_info: '',
           picsId: '',
-        })
+        });
         setPics({
           name: '',
           urls_banner: [''],
           urls_profile: [''],
-        })
+        });
       }
-    }catch(error){
-      console.log(error)
-      if(error instanceof Error) setErro(error);
-    }finally{
+    } catch (error) {
+      console.log(error);
+      if (error instanceof Error) setErro(error);
+    } finally {
       setLoad(false);
     }
-}
-  if(load) return <p>Loading...</p>;
-  if(erro) return <p>{JSON.stringify(erro)}</p>;
+  };
+  const handleLoad = () => {
+    if (load) {
+      return <Loading />;
+    } else if (erro !== false) {
+      return <pre>{JSON.stringify(erro)}</pre>;
+    } else if (result !== '') {
+      return <pre>{result}</pre>;
+    } else {
+      return <Button label={'Cadastrar'} onClick={e => handleClick(e)} />;
+    }
+  };
   return (
     <FormContainer>
       <FormGroup>
@@ -109,11 +122,11 @@ const CadCompany = () => {
 
         <InputComponent entity={pics} setEntity={setPics} />
 
-        <div className='flex w-full justify-center items-center'>
-          <Button label={'Cadastrar'} onClick={(e) => handleClick(e)}/>
+        <div className="flex w-full justify-center items-center">
+          {handleLoad()}
         </div>
       </FormGroup>
-      <pre>{JSON.stringify({company, pics}, null, 2)}</pre>
+      <pre>{JSON.stringify({ company, pics }, null, 2)}</pre>
     </FormContainer>
   );
 };
