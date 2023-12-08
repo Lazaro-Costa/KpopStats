@@ -13,6 +13,8 @@ import DropdownSelect from '../Dropdown/Dropdown';
 import Button from '../Button/Button';
 import { CreateEntity } from '../../utils/CreateEntity';
 import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
+import { apiBase } from '../Helper/Variables';
+import Loading from '../Loading/Loading';
 
 const CadGroup = () => {
   const [group, setGroup] = React.useState<ICreateGroup>({
@@ -32,6 +34,7 @@ const CadGroup = () => {
   const [load, setLoad] = React.useState(false);
   const [erro, setErro] = React.useState<Error | Boolean>(false);
   const [companys, setCompanys] = React.useState<IGetCompanys[]>([]);
+  const [result, setResult] = React.useState<string>('');
 
   FetchInfoWithPagination({
     uri: 'companys',
@@ -50,11 +53,9 @@ const CadGroup = () => {
         debut_date: new Date(group.debut_date).toISOString(),
       };
       const CreateGroup = new CreateEntity(data, pics);
-      const response = await CreateGroup.createEntity(
-        'http://localhost:3000/groups',
-      );
+      const response = await CreateGroup.createEntity(`${apiBase}/groups`);
       if (response) {
-        console.log(response);
+        setResult('Deu certo!');
         setGroup({
           name: '',
           companyId: '',
@@ -76,8 +77,17 @@ const CadGroup = () => {
       setLoad(false);
     }
   };
-  if (load) console.log('Loading...');
-  if (erro) console.log(erro);
+  const handleLoad = () => {
+    if (load) {
+      return <Loading />;
+    } else if (erro !== false) {
+      return <pre>{JSON.stringify(erro)}</pre>;
+    } else if (result !== '') {
+      return <pre>{result}</pre>;
+    } else {
+      return <Button label={'Cadastrar'} onClick={e => handleClick(e)} />;
+    }
+  };
   return (
     <FormContainer>
       <FormGroup>
@@ -127,7 +137,7 @@ const CadGroup = () => {
         <InputComponent entity={pics} setEntity={setPics} />
 
         <div className="flex w-full justify-center items-center">
-          <Button label={'Cadastrar'} onClick={e => handleClick(e)} />
+          {handleLoad()}
         </div>
       </FormGroup>
       <pre>{JSON.stringify({ group, pics }, null, 2)}</pre>
