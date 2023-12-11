@@ -76,6 +76,7 @@ const Home = () => {
     </>
   );
 };
-// terminar este componenete - O Load More e criar um use Local Storage. Para melhorar a paginação
+// TODO:
+// * Criar Pagina de Membros
 
 export default Home;
