@@ -21,6 +21,9 @@
   background-color: rgb(9 9 11 / 1);
 }
 
+.w-max-750{
+  max-width: 750px;
+}
 /* body {
   margin: 0;
   display: flex;

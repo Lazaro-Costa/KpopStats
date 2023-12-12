@@ -27,7 +27,7 @@
   font-size: 1rem;
   padding: 1.5rem 1rem;
   width: 12rem;
-  margin: auto;
+  margin: auto auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   position: relative;

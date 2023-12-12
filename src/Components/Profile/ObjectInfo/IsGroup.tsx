@@ -4,10 +4,10 @@ import { Label } from "../../Label";
 
 const IsGroup = ({ data }: { data: Object }) => {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-1">
     <span key={'chave'} className="flex flex-col gap-1 items-end text-slate-200 col-[1]">
       {Object.entries(data).map(([key, _]) => (
-        <Label.Small key={Math.random()+'chave'} text={key} verde />
+        <Label.Small key={Math.random()+'chave'} text={key} verde className='text-xl'/>
       ))}
     </span>
 
@@ -16,7 +16,7 @@ const IsGroup = ({ data }: { data: Object }) => {
         <>
           {Array.isArray(value)
               ? value.map((item) => IsGroup({ data: item }))
-              : value instanceof Object ? IsGroup({ data: value }) : <Label.Small key={Math.random()+'valor'} text={value}/> || 'null'}
+              : value instanceof Object ? IsGroup({ data: value }) : <Label.Small key={Math.random()+'valor'} text={value} className='text-xl'/> || 'null'}
         </>
       ))}
     </span>

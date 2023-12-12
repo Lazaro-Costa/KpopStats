@@ -10,7 +10,7 @@ const CardBackComponent = ({ data }: { data: IGroupCard }) => {
         {data.members.map((member) => {
           return (
             <div key={member.id} className={style.Icon}>
-              <IconContainer url={member.icon} />
+              <IconContainer url={member.icon} id={member.id}/>
               <LabelSmall text={member.name} />
             </div>
           );
