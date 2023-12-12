@@ -5,6 +5,7 @@ import Home from './Components/Home/Home'
 import Profile from './Components/Profile/Profile';
 import { Footer } from './Components/Footer';
 import Cadastro from './Components/Cadastro/Cadastro';
+import ProfileIdol from './Components/ProfileIdol/ProfileIdol';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/' element={<Home />} key='home'/>
             <Route path='/perfil/:user' element={<Profile />} key='profile'/>
             <Route path='/cadastro' element={<Cadastro />} key='cadastro'/>
+            <Route path='/idols/:id' element={<ProfileIdol />} key='idols'/>
             {/* <Route path='*' element={<NotFound />} key='404'/> */}
           </Routes>
         </main>
