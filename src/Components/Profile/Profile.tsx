@@ -8,11 +8,16 @@ import IsGroup from './ObjectInfo/IsGroup';
 import { apiBase } from '../Helper/Variables';
 import Head from '../Helper/Head';
 import Loading from '../Loading/Loading';
+import CardProvider from '../Card/CardProvider/CardProvider';
+import RelatedGroup from './RelatedGroup/RelatedGroup';
+import { IGetRelatedGroup } from './RelatedGroup/IGetRelatedGroup';
 
 const Profile = () => {
   const { user } = useParams();
   const [data, setData] = React.useState<IGetGroups>({} as IGetGroups);
   const [info, setInfo] = React.useState<InfoGroups>({} as InfoGroups);
+  const [related, setRelated] = React.useState<IGetRelatedGroup>({} as IGetRelatedGroup);
+
 
   function convertToInfo(data: IGetGroups): InfoGroups {
     return {
@@ -40,14 +45,18 @@ const Profile = () => {
   }
 
   React.useEffect(() => {
-    fetch(`${apiBase}/groups/${user}`)
-      .then(res => res.json())
-      .then(groups => {
-        setData(groups as IGetGroups);
-        setInfo(convertToInfo(groups));
+    Promise.all([
+      fetch(`${apiBase}/groups/${user}`).then(res => res.json()),
+      fetch(`${apiBase}/groups/related/${user}`).then(res => res.json()),
+    ])
+      .then(([idolData, relatedData]) => {
+        setData(idolData as IGetGroups);
+        setInfo(convertToInfo(idolData));
+        setRelated(relatedData as IGetRelatedGroup);
       })
       .catch(err => {
-        console.log(err);
+        console.error('Error fetching data:', err);
+        // Tratar o erro de forma apropriada (exibir uma mensagem, fazer um fallback etc.)
       });
   }, []);
 
@@ -72,9 +81,9 @@ const Profile = () => {
             className="object-cover"
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-2 gap-4 mb-3">
           <div
-            className={`flex flex-col items-center w-[400px] gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
+            className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
           >
             <h1 className="text-slate-200 bg-zinc-900 w-full text-center">
               Background
@@ -84,7 +93,7 @@ const Profile = () => {
 
           {data.more_info && (
             <div
-              className={`flex flex-col items-center w-[400px] gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
+            className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
             >
               <h1 className="text-slate-200 bg-zinc-900 w-full text-center">
                 More Info
@@ -94,6 +103,17 @@ const Profile = () => {
           )}
         </div>
       </PG_Container>
+      <CardProvider>
+        {!related ? (
+          <div className="flex w-full h-screen place-items-center">
+            <Loading />
+          </div>
+        ) : (
+          <div className="flex flex-col items-center">
+            <RelatedGroup data={related} />
+          </div>
+        )}
+      </CardProvider>
     </PG.Component>
   );
 };

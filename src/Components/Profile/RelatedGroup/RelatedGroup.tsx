@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { CardFront } from '../../Card/CardFront'
 import { Label } from '../../Label'
-import { IGetRelated } from '../IGetRelated'
-import PhotoRelated from './PhotoRelated'
 
-const RelatedIdol = ({data}: {data: IGetRelated}) => {
+import { IGetRelatedGroup } from './IGetRelatedGroup'
+import PhotoRelated from '../../ProfileIdol/relatedIdol/PhotoRelated'
+
+const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
   return (
     <div className='flex gap-4 flex-wrap'>
       <CardFront.Container key={data.company.id+"company"}>
@@ -25,26 +26,8 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
       </CardFront.Container>
 
       {/* Group and Members*/}
-      {data.group && (
-      <CardFront.Container key={data.group.id+"group"}>
-          <PhotoRelated url={data.group.pictures.profiles[0].url} logoUrl={data.group.pictures.banners[0].url} alt={data.group.name} id={String(data.group.id)} perfil={'perfil'}/>
-          <Label.Root>
-          <div className="grid-rows-2">
-            <span className="row-span-1 w-full flex justify-around gap-1 h-max">
-              <Label.Small text={data.company.name} />
-              <Label.Small text={data.group.fandom_name} />
-            </span>
-            <span className="row-span-2 justify-center items-center text-center">
-              <Link to={`/perfil/${data.group.id}`} >
-                <Label.Big text={data.group.name}/>
-              </Link>
-            </span>
-          </div>
-        </Label.Root>
-      </CardFront.Container>
-        )}
-        {data.group.idols && (
-        data.group.idols.map((idol) => {
+        {data.idols && (
+        data.idols.map((idol) => {
           return (
             <CardFront.Container key={idol.id+"idol"}>
               <PhotoRelated url={idol.pictures.profiles[0].url} logoUrl={idol.pictures.banners[0].url} alt={idol.name} id={String(idol.id)} perfil={'idols'}/>
@@ -52,7 +35,7 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
                 <div className="grid-rows-2">
                   <span className="row-span-1 w-full flex justify-around gap-1 h-max">
                     <Label.Small text={data.company.name} />
-                    <Label.Small text={data.group.name} />
+                    <Label.Small text={data.name} />
                   </span>
                   <span className="row-span-2 justify-center items-center text-center">
                     <a href={`/idols/${idol.id}`} target="_self">
@@ -69,4 +52,4 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
   )
 }
 // Corrigir componente.
-export default RelatedIdol
+export default RelatedGroup
