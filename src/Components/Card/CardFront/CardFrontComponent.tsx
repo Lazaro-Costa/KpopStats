@@ -14,7 +14,9 @@ const CardComponent = ({ data }: { data: IGroupCard }) => {
               <Label.Small text={data.fandom} />
             </span>
             <span className="row-span-2">
-              <Label.Big text={data.group}/>
+              <a href={`/perfil/${data.id}`} target='_blank'>
+                <Label.Big text={data.group}/>
+              </a>
             </span>
           </div>
         </Label.Root>
