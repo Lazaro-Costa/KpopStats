@@ -7,13 +7,24 @@ export interface ICreatePic{
   urls_banner?: string[]
 }
 export interface IGetPic{
-  id: number
-  createdAt: string
-  updatedAt: string
-  name: string
-  profiles: [{id:number, url:string}]
-  banners: [{id:number, url:string}]
-}
+    id: number
+    createdAt: string
+    updatedAt: string
+    name: string
+    profiles: Profile[]
+    banners: Banner[]
+  }
+
+  export interface Profile {
+    id: number
+    url: string
+  }
+
+  export interface Banner {
+    id: number
+    url: string
+  }
+
 export interface ICreateBanner{
   picId: number
   url: string[]
@@ -33,9 +44,13 @@ export interface ICreateCompany{
   urls_profile?: ICreateProfile['url']
 }
 export interface IGetCompanys{
-  id: number
   name: string
-  companyId?: number
+  id: number
+  ceo: string
+  headquarters: string
+  founding_date: string
+  more_info: string
+  pictures: IGetPic
 }
 export interface ICreateGroup{
   id?:number
@@ -50,12 +65,17 @@ export interface ICreateGroup{
 }
 export interface IGetGroupsBKP{
   id: number
-  name: string
-  fandom_name: string
-  companyId: number
-  company: IGetCompanys
   createdAt: string
   updatedAt: string
+  name: string
+  fandom_name: string
+  debut_date: string
+  more_info: string
+  companyId: number
+  picsId: number
+  company: Pick<IGetCompanys, 'id' | 'name'>
+  pictures: IGetPic
+  idols: IGetIdol[]
 }
 export interface ICreateIdol{
   name: string
@@ -89,34 +109,12 @@ export interface IGetGroups {
   more_info: string
   companyId: number
   picsId: number
-  company: Company
-  pictures: Pictures
-  idols: Idol[]
+  company: Pick<IGetCompanys, 'id' | 'name'>
+  pictures: IGetPic
+  idols: IGetIdol[]
 }
 
-export interface Company {
-  id: number
-  name: string
-}
-
-export interface Pictures {
-  id: number
-  name: string
-  banners: Banner[]
-  profiles: Profile[]
-}
-
-export interface Banner {
-  id: number
-  url: string
-}
-
-export interface Profile {
-  id: number
-  url: string
-}
-
-export interface Idol {
+export interface IGetIdol {
   id: number
   createdAt: string
   updatedAt: string
@@ -130,27 +128,7 @@ export interface Idol {
   companyId: number
   groupId: number
   picsId: number
-  company: Company
-  group: AuxGroupIdol
-  pictures: Pictures
-}
-interface AuxGroupIdol{
-  id: number
-  name: string
-}
-export interface Pictures {
-  id: number
-  name: string
-  banners: Banner[]
-  profiles: Profile[]
-}
-
-export interface Banner {
-  id: number
-  url: string
-}
-
-export interface Profile {
-  id: number
-  url: string
+  company: Pick<IGetCompanys, 'id' | 'name'>
+  group: Pick<IGetGroups, 'id' | 'name'>
+  pictures: IGetPic
 }

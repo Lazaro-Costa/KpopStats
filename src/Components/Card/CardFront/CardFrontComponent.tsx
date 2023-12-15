@@ -6,7 +6,7 @@ import { IGroupCard } from '../../../DataMock/DataIdol';
 const CardComponent = ({ data }: { data: IGroupCard }) => {
   return (
       <CardFront.Container>
-        <PhotoItem url={data.url} logoUrl={data.logoUrl} alt={data.group} profile={data.id}/>
+        <PhotoItem url={data.url} logoUrl={data.logoUrl} alt={data.group} id={data.id}/>
         <Label.Root>
           <div className="grid-rows-2">
             <span className="row-span-1 flex gap-1 w-max h-max">
@@ -14,7 +14,7 @@ const CardComponent = ({ data }: { data: IGroupCard }) => {
               <Label.Small text={data.fandom} />
             </span>
             <span className="row-span-2">
-              <a href={`/perfil/${data.id}`} target='_blank'>
+              <a href={`/group/${data.id}`} target='_blank'>
                 <Label.Big text={data.group}/>
               </a>
             </span>

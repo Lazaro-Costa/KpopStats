@@ -30,7 +30,7 @@ const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
         data.idols.map((idol) => {
           return (
             <CardFront.Container key={idol.id+"idol"}>
-              <PhotoRelated url={idol.pictures.profiles[0].url} logoUrl={idol.pictures.banners[0].url} alt={idol.name} id={String(idol.id)} perfil={'idols'}/>
+              <PhotoRelated url={idol.pictures.profiles[0].url} logoUrl={idol.pictures.banners[0].url} alt={idol.name} id={String(idol.id)} perfil={'idol'}/>
               <Label.Root>
                 <div className="grid-rows-2">
                   <span className="row-span-1 w-full flex justify-around gap-1 h-max">
@@ -38,7 +38,7 @@ const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
                     <Label.Small text={data.name} />
                   </span>
                   <span className="row-span-2 justify-center items-center text-center">
-                    <a href={`/idols/${idol.id}`} target="_self">
+                    <a href={`/idol/${idol.id}`} target="_self">
                       <Label.Big text={idol.name}/>
                     </a>
                   </span>
