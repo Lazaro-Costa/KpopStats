@@ -6,10 +6,10 @@ import { PG } from '../ProfileGroup/utils';
 import Head from '../Helper/Head';
 import PG_Container from '../ProfileGroup/utils/PG_Container';
 import CardProvider from '../Card/CardProvider/CardProvider';
-import { IGetCompanyRaw, IGetRelatedCompany } from './IGetCompanyRaw';
 import IsGroup from '../ProfileGroup/ObjectInfo/IsGroup';
-import RelatedIdol from '../ProfileIdol/relatedIdol/RelatedIdol';
 import { FlipCard } from '../Card/FlipCard';
+import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
+import { IGetCompanyRelated } from '../ProfileIdol/IGetRelated';
 
 type IGetCompanyProfile = {
   Name: string;
@@ -20,13 +20,15 @@ type IGetCompanyProfile = {
 
 const ProfileCompany = () => {
   const { id } = useParams();
-  const [data, setData] = React.useState<IGetCompanyRaw>({} as IGetCompanyRaw);
+  const [data, setData] = React.useState<IGetCompanys>({} as IGetCompanys);
   const [info, setInfo] = React.useState<IGetCompanyProfile>(
     {} as IGetCompanyProfile,
   );
-  const [related, setRelated] = React.useState<IGetRelatedCompany>({} as IGetRelatedCompany);
+  const [related, setRelated] = React.useState<IGetCompanyRelated>(
+    {} as IGetCompanyRelated,
+  );
 
-  function convertToInfo(data: IGetCompanyRaw): IGetCompanyProfile {
+  function convertToInfo(data: IGetCompanys): IGetCompanyProfile {
     return {
       Name: data.name,
       'Founding Date': new Date(data.founding_date).toLocaleDateString(),
@@ -55,13 +57,12 @@ const ProfileCompany = () => {
       fetch(`${apiBase}/companys/related/${id}`).then(res => res.json()),
     ])
       .then(([CompanyData, relatedData]) => {
-        setData(CompanyData as IGetCompanyRaw);
-        setInfo(convertToInfo(CompanyData as IGetCompanyRaw));
-        setRelated(relatedData as IGetRelatedCompany);
+        setData(CompanyData as IGetCompanys);
+        setInfo(convertToInfo(CompanyData as IGetCompanys));
+        setRelated(relatedData as IGetCompanyRelated);
       })
       .catch(err => {
         console.error('Error fetching data:', err);
-        // Tratar o erro de forma apropriada (exibir uma mensagem, fazer um fallback etc.)
       });
   }, []);
 
@@ -108,18 +109,21 @@ const ProfileCompany = () => {
           )}
         </div>
       </PG_Container>
-      <CardProvider>
-        {!related ? (
+      {!related ? (
+        <CardProvider>
           <div className="flex w-full h-screen place-items-center">
             <Loading />
           </div>
-        ) : (
-          <>
-            <div className='text-slate-200 bg-zinc-900 w-full text-center'>Related</div>
-            {/* Refatorar o componente do FlipcardRoot ou achar uma alternativa nova */}
-          </>
-          )}
-      </CardProvider>
+        </CardProvider>
+      ) : (
+        <>
+          <CardProvider>
+            {related.groups.map(group => {
+              return <FlipCard.Root key={`${group.id}`} group={group as IGetGroups} />;
+            })}
+          </CardProvider>
+        </>
+      )}
     </PG.Component>
   );
 };
