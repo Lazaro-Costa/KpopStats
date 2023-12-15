@@ -1,35 +1,31 @@
 import React from 'react';
-import Loading from '../Loading/Loading';
-import { Idol } from '../../Interfaces/Interfaces.api';
-import { apiBase } from '../Helper/Variables';
+import { PG } from './utils';
+import PG_Container from './utils/PG_Container';
 import { useParams } from 'react-router-dom';
-import { PG } from '../ProfileGroup/utils';
+import { IGetGroups, InfoGroups } from '../../Interfaces/Interfaces.api';
+import IsGroup from './ObjectInfo/IsGroup';
+import { apiBase } from '../Helper/Variables';
 import Head from '../Helper/Head';
-import PG_Container from '../ProfileGroup/utils/PG_Container';
-import IsGroup from '../ProfileGroup/ObjectInfo/IsGroup';
+import Loading from '../Loading/Loading';
 import CardProvider from '../Card/CardProvider/CardProvider';
-import { IGetRelated } from './IGetRelated';
-import RelatedIdol from './relatedIdol/RelatedIdol';
-type IGetIdol = {
-  Name: string;
-  'Birth name': string;
-  'Birth date': string;
-  'Foreign name': string;
-  'Birth place': string;
-};
-const ProfileIdol = () => {
-  const { id } = useParams();
-  const [data, setData] = React.useState<Idol>({} as Idol);
-  const [info, setInfo] = React.useState<IGetIdol>({} as IGetIdol);
-  const [related, setRelated] = React.useState<IGetRelated>({} as IGetRelated);
+import RelatedGroup from './RelatedGroup/RelatedGroup';
+import { IGetRelatedGroup } from './RelatedGroup/IGetRelatedGroup';
 
-  function convertToInfo(data: Idol): IGetIdol {
+const ProfileGroups = () => {
+  const { id } = useParams();
+  const [data, setData] = React.useState<IGetGroups>({} as IGetGroups);
+  const [info, setInfo] = React.useState<InfoGroups>({} as InfoGroups);
+  const [related, setRelated] = React.useState<IGetRelatedGroup>({} as IGetRelatedGroup);
+
+
+  function convertToInfo(data: IGetGroups): InfoGroups {
     return {
       Name: data.name,
-      'Birth name': data.korean_name,
-      'Birth date': new Date(data.date_birth).toLocaleDateString(),
-      'Foreign name': data.foreign_name ? data.foreign_name : 'N/A',
-      'Birth place': data.nationality ? data.nationality : 'N/A',
+      'Fandom Name': data.fandom_name,
+      Debut: data.debut_date
+        ? new Date(data.debut_date).toLocaleDateString()
+        : 'N/A',
+      Company: data.company.name,
     };
   }
   function converterStringParaObjeto(str: string): Record<string, string> {
@@ -49,13 +45,13 @@ const ProfileIdol = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch(`${apiBase}/idols/${id}`).then(res => res.json()),
-      fetch(`${apiBase}/idols/related/${id}`).then(res => res.json()),
+      fetch(`${apiBase}/groups/${id}`).then(res => res.json()),
+      fetch(`${apiBase}/groups/related/${id}`).then(res => res.json()),
     ])
       .then(([idolData, relatedData]) => {
-        setData(idolData as Idol);
-        setInfo(convertToInfo(idolData as Idol));
-        setRelated(relatedData as IGetRelated);
+        setData(idolData as IGetGroups);
+        setInfo(convertToInfo(idolData));
+        setRelated(relatedData as IGetRelatedGroup);
       })
       .catch(err => {
         console.error('Error fetching data:', err);
@@ -96,7 +92,7 @@ const ProfileIdol = () => {
 
           {data.more_info && (
             <div
-              className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
+            className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
             >
               <h1 className="text-slate-200 bg-zinc-900 w-full text-center">
                 More Info
@@ -113,7 +109,7 @@ const ProfileIdol = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <RelatedIdol data={related} />
+            <RelatedGroup data={related} />
           </div>
         )}
       </CardProvider>
@@ -121,4 +117,4 @@ const ProfileIdol = () => {
   );
 };
 
-export default ProfileIdol;
+export default ProfileGroups;

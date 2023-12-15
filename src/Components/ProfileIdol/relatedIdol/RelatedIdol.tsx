@@ -27,7 +27,7 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
       {/* Group and Members*/}
       {data.group && (
       <CardFront.Container key={data.group.id+"group"}>
-          <PhotoRelated url={data.group.pictures.profiles[0].url} logoUrl={data.group.pictures.banners[0].url} alt={data.group.name} id={String(data.group.id)} perfil={'perfil'}/>
+          <PhotoRelated url={data.group.pictures.profiles[0].url} logoUrl={data.group.pictures.banners[0].url} alt={data.group.name} id={String(data.group.id)} perfil={'group'}/>
           <Label.Root>
           <div className="grid-rows-2">
             <span className="row-span-1 w-full flex justify-around gap-1 h-max">
@@ -35,7 +35,7 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
               <Label.Small text={data.group.fandom_name} />
             </span>
             <span className="row-span-2 justify-center items-center text-center">
-              <Link to={`/perfil/${data.group.id}`} >
+              <Link to={`/group/${data.group.id}`} >
                 <Label.Big text={data.group.name}/>
               </Link>
             </span>
@@ -47,7 +47,7 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
         data.group.idols.map((idol) => {
           return (
             <CardFront.Container key={idol.id+"idol"}>
-              <PhotoRelated url={idol.pictures.profiles[0].url} logoUrl={idol.pictures.banners[0].url} alt={idol.name} id={String(idol.id)} perfil={'idols'}/>
+              <PhotoRelated url={idol.pictures.profiles[0].url} logoUrl={idol.pictures.banners[0].url} alt={idol.name} id={String(idol.id)} perfil={'idol'}/>
               <Label.Root>
                 <div className="grid-rows-2">
                   <span className="row-span-1 w-full flex justify-around gap-1 h-max">
@@ -55,7 +55,7 @@ const RelatedIdol = ({data}: {data: IGetRelated}) => {
                     <Label.Small text={data.group.name} />
                   </span>
                   <span className="row-span-2 justify-center items-center text-center">
-                    <a href={`/idols/${idol.id}`} target="_self">
+                    <a href={`/idol/${idol.id}`} target="_self">
                       <Label.Big text={idol.name}/>
                     </a>
                   </span>

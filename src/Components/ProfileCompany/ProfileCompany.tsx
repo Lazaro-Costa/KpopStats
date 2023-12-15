@@ -1,32 +1,37 @@
 import React from 'react';
-// import { ArtistInfo } from '../../Interfaces/DataIdol';
-import { PG } from '../ProfileGroup';
-import PG_Container from '../ProfileGroup/PG_Container';
-import { useParams } from 'react-router-dom';
-import { IGetGroups, InfoGroups } from '../../Interfaces/Interfaces.api';
-import IsGroup from './ObjectInfo/IsGroup';
-import { apiBase } from '../Helper/Variables';
-import Head from '../Helper/Head';
 import Loading from '../Loading/Loading';
+import { apiBase } from '../Helper/Variables';
+import { useParams } from 'react-router-dom';
+import { PG } from '../ProfileGroup/utils';
+import Head from '../Helper/Head';
+import PG_Container from '../ProfileGroup/utils/PG_Container';
 import CardProvider from '../Card/CardProvider/CardProvider';
-import RelatedGroup from './RelatedGroup/RelatedGroup';
-import { IGetRelatedGroup } from './RelatedGroup/IGetRelatedGroup';
+import { IGetCompanyRaw, IGetRelatedCompany } from './IGetCompanyRaw';
+import IsGroup from '../ProfileGroup/ObjectInfo/IsGroup';
+import RelatedIdol from '../ProfileIdol/relatedIdol/RelatedIdol';
+import { FlipCard } from '../Card/FlipCard';
 
-const Profile = () => {
-  const { user } = useParams();
-  const [data, setData] = React.useState<IGetGroups>({} as IGetGroups);
-  const [info, setInfo] = React.useState<InfoGroups>({} as InfoGroups);
-  const [related, setRelated] = React.useState<IGetRelatedGroup>({} as IGetRelatedGroup);
+type IGetCompanyProfile = {
+  Name: string;
+  'Founding Date': string;
+  Headquarters: string;
+  CEO: string;
+};
 
+const ProfileCompany = () => {
+  const { id } = useParams();
+  const [data, setData] = React.useState<IGetCompanyRaw>({} as IGetCompanyRaw);
+  const [info, setInfo] = React.useState<IGetCompanyProfile>(
+    {} as IGetCompanyProfile,
+  );
+  const [related, setRelated] = React.useState<IGetRelatedCompany>({} as IGetRelatedCompany);
 
-  function convertToInfo(data: IGetGroups): InfoGroups {
+  function convertToInfo(data: IGetCompanyRaw): IGetCompanyProfile {
     return {
       Name: data.name,
-      'Fandom Name': data.fandom_name,
-      Debut: data.debut_date
-        ? new Date(data.debut_date).toLocaleDateString()
-        : 'N/A',
-      Company: data.company.name,
+      'Founding Date': new Date(data.founding_date).toLocaleDateString(),
+      Headquarters: data.headquarters,
+      CEO: data.ceo,
     };
   }
   function converterStringParaObjeto(str: string): Record<string, string> {
@@ -46,13 +51,13 @@ const Profile = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch(`${apiBase}/groups/${user}`).then(res => res.json()),
-      fetch(`${apiBase}/groups/related/${user}`).then(res => res.json()),
+      fetch(`${apiBase}/companys/${id}`).then(res => res.json()),
+      fetch(`${apiBase}/companys/related/${id}`).then(res => res.json()),
     ])
-      .then(([idolData, relatedData]) => {
-        setData(idolData as IGetGroups);
-        setInfo(convertToInfo(idolData));
-        setRelated(relatedData as IGetRelatedGroup);
+      .then(([CompanyData, relatedData]) => {
+        setData(CompanyData as IGetCompanyRaw);
+        setInfo(convertToInfo(CompanyData as IGetCompanyRaw));
+        setRelated(relatedData as IGetRelatedCompany);
       })
       .catch(err => {
         console.error('Error fetching data:', err);
@@ -71,7 +76,7 @@ const Profile = () => {
       <Head title={data.name} description={data.name + ' Profile'} />
       <PG_Container>
         <div
-          key={data.pictures.profiles[0].id}
+          key={data.pictures.profiles[0].id} //add pictures to api
           className="max-w-4xl rounded-lg overflow-hidden shadow-lg m-4"
         >
           <img
@@ -93,7 +98,7 @@ const Profile = () => {
 
           {data.more_info && (
             <div
-            className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
+              className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
             >
               <h1 className="text-slate-200 bg-zinc-900 w-full text-center">
                 More Info
@@ -109,13 +114,14 @@ const Profile = () => {
             <Loading />
           </div>
         ) : (
-          <div className="flex flex-col items-center">
-            <RelatedGroup data={related} />
-          </div>
-        )}
+          <>
+            <div className='text-slate-200 bg-zinc-900 w-full text-center'>Related</div>
+            {/* Refatorar o componente do FlipcardRoot ou achar uma alternativa nova */}
+          </>
+          )}
       </CardProvider>
     </PG.Component>
   );
 };
 
-export default Profile;
+export default ProfileCompany;

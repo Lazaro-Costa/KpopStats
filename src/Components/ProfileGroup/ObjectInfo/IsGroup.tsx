@@ -1,5 +1,3 @@
-
-// import { Label } from '../../Label';
 import { Label } from "../../Label";
 
 const IsGroup = ({ data }: { data: Object }) => {
@@ -20,12 +18,6 @@ const IsGroup = ({ data }: { data: Object }) => {
         </>
       ))}
     </span>
-
-      {/* <span className="flex flex-col gap-1 items-start text-slate-200 col-[2]">
-        {Object.entries(data).map(([_, value], index) => (
-          <Label.Small key={index} text={value} />
-        ))}
-      </span> */}
     </div>
   );
 };

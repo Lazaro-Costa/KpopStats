@@ -5,9 +5,9 @@ type IPhotoItem = {
   url: string;
   logoUrl: string;
   alt: string;
-  profile: string;
+  id: string;
 };
-const PhotoItem = ({ url, logoUrl, alt, profile }: IPhotoItem) => {
+const PhotoItem = ({ url, logoUrl, alt, id }: IPhotoItem) => {
   const [isActive, setIsActive] = React.useState(false);
 
   return (
@@ -16,7 +16,7 @@ const PhotoItem = ({ url, logoUrl, alt, profile }: IPhotoItem) => {
         className={`${styles.flipCardInner} ${isActive ? styles.active : ''}`}
       >
         <div className={styles.flipCardFront}>
-          <Link to={`/perfil/${profile}`}>
+          <Link to={`/group/${id}`}>
             <img
               src={url}
               alt={alt}
@@ -27,7 +27,7 @@ const PhotoItem = ({ url, logoUrl, alt, profile }: IPhotoItem) => {
         </div>
 
         <div className={styles.flipCardBack}>
-          <Link to={`/perfil/${profile}`}>
+          <Link to={`/group/${id}`}>
             <img
               src={logoUrl}
               alt={alt}
