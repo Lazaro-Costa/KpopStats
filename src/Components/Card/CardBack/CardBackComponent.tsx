@@ -1,17 +1,17 @@
 import { CardBack } from '.';
-import { IGroupCard } from '../../../DataMock/DataIdol';
+import { IGetGroups } from '../../../Interfaces/Interfaces.api';
 import IconContainer from '../../Icon/IconContainer';
 import LabelSmall from '../../Label/LabelSmall';
 import style from './CSS/CardBackComponent.module.css';
-const CardBackComponent = ({ data }: { data: IGroupCard }) => {
+const CardBackComponent = ({ group }: { group: IGetGroups }) => {
   return (
     <CardBack.Container>
       <div className={style.containerIcon}>
-        {data.members.map((member) => {
+        {group.idols.map((idol) => {
           return (
-            <div key={member.id} className={style.Icon}>
-              <IconContainer url={member.icon} id={member.id}/>
-              <LabelSmall text={member.name} />
+            <div key={idol.id} className={style.Icon}>
+              <IconContainer url={idol.pictures.profiles[0].url} id={`${idol.id}`}/>
+              <LabelSmall text={idol.name} />
             </div>
           );
         })}

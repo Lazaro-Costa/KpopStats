@@ -3,9 +3,9 @@ import { CardBack } from '../CardBack';
 import { CardFront } from '../CardFront';
 import style from './CSS/FlipCard.module.css';
 import { Arrow } from '../../Arrow';
-import { IGroupCard } from '../../../DataMock/DataIdol';
+import { IGetGroups } from '../../../Interfaces/Interfaces.api';
 
-const FlipCardRoot = ({ data }: { data: IGroupCard }) => {
+const FlipCardRoot = ({ group }: { group: IGetGroups }) => {
   const [isActive, setIsActive] = React.useState(false);
   const toggleCard = () => {
     setIsActive(!isActive);
@@ -14,7 +14,7 @@ const FlipCardRoot = ({ data }: { data: IGroupCard }) => {
     <div className={style.flipCard}>
       <div className={`${style.flipCardInner} ${isActive ? style.active : ''}`}>
         <div className={style.flipCardFront}>
-          <CardFront.Component key={data.id+'front'} data={data} />
+          <CardFront.Component key={`${group.id} front`} group={group} />
 
           <span className={`${style.spanBtnFwd}`} onClick={toggleCard}>
             <Arrow.Forward />
@@ -22,8 +22,7 @@ const FlipCardRoot = ({ data }: { data: IGroupCard }) => {
         </div>
 
         <div className={style.flipCardBack}>
-          <CardBack.Component key={data.id+'back'} data={data} />
-
+          <CardBack.Component key={`${group.id} back`} group={group} />
           <span className={`${style.spanBtnBwd}`} onClick={toggleCard}>
             <Arrow.Backward />
           </span>
