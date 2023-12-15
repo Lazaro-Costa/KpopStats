@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { CardFront } from '../../Card/CardFront'
 import { Label } from '../../Label'
-import { IGetRelated } from '../IGetRelated'
+import { IGetIdolRelated } from '../IGetRelated'
 import PhotoRelated from './PhotoRelated'
 
-const RelatedIdol = ({data}: {data: IGetRelated}) => {
+const RelatedIdol = ({data}: {data: IGetIdolRelated}) => {
   return (
     <div className='flex gap-4 flex-wrap'>
       <CardFront.Container key={data.company.id+"company"}>
