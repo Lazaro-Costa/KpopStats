@@ -1,16 +1,15 @@
 import React from 'react';
 import CardProvider from '../Card/CardProvider/CardProvider';
 import { FlipCard } from '../Card/FlipCard';
-import { IGroupCard, IGroupRaw, convertToIdol } from '../../DataMock/DataIdol';
 import Loading from '../Loading/Loading';
 import Head from '../Helper/Head';
 import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
 import { Arrow } from '../Arrow';
 import Refresh from '../Refresh/Refresh';
+import { IGetGroups } from '../../Interfaces/Interfaces.api';
 
 const Home = () => {
-  const [groupRaw, setGroupRaw] = React.useState<IGroupRaw[]>([]);
-  const [groups, setGroups] = React.useState<IGroupCard[]>([]);
+  const [groupRaw, setGroupRaw] = React.useState<IGetGroups[]>([]);
   const [page, setPage] = React.useState(1);
   const [lastUpdated, setLastUpdated] = React.useState(null);
 
@@ -21,7 +20,6 @@ const Home = () => {
     setEntity: setGroupRaw,
   });
   React.useEffect(() => {
-    setGroups(convertToIdol(groupRaw));
     setLastUpdated(localStorage.getItem('lastUpdated'));
   }, [groupRaw]);
 
@@ -64,8 +62,8 @@ const Home = () => {
             </div>
           </div>
           <CardProvider>
-            {groups.map(group => {
-              return <FlipCard.Root key={group.id} data={group} />;
+            {groupRaw.map(group => {
+              return <FlipCard.Root key={`${group.id}`} group={group} />;
             })}
             <div className="self-end w-full flex items-center justify-center">
               <Arrow.Down onClick={handleLoad} />
@@ -76,7 +74,5 @@ const Home = () => {
     </>
   );
 };
-// TODO:
-// * Criar Pagina de Membros
 
 export default Home;
