@@ -48,7 +48,7 @@ const Home = () => {
           <Loading />
         </CardProvider>
       ) : (
-        <>
+        <div className='animeLeft'>
           <div>
             <div className="self-start w-full flex items-center justify-end m-2">
               <span
@@ -69,7 +69,7 @@ const Home = () => {
               <Arrow.Down onClick={handleLoad} />
             </div>
           </CardProvider>
-        </>
+        </div>
       )}
     </>
   );

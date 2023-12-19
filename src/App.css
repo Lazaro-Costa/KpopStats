@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 /* #root {
@@ -8,7 +8,7 @@
   margin: 0 auto;
   text-align: center;
 } */
-body{
+body {
   padding: 4rem 0;
   margin: 0;
   overflow: scroll;
@@ -18,51 +18,63 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: invisible;        /* color of the tracking area */
+  background: invisible; /* color of the tracking area */
 }
 body::-webkit-scrollbar-button {
   display: none;
 }
 body::-webkit-scrollbar-corner {
-  background: invisible;        /* color of the tracking area */
+  background: invisible; /* color of the tracking area */
 }
 body::-webkit-scrollbar-thumb {
-  background-color: transparent;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid rgba(128, 128, 128, 0.3);  /* creates padding around scroll thumb */
+  background-color: transparent; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid rgba(128, 128, 128, 0.3); /* creates padding around scroll thumb */
 }
 
-.container{
+.container {
   max-width: 50rem;
   padding: 0 1rem;
   margin: 0 auto;
 }
-.App{
+.App {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh + 4rem);
 }
 
-.AppBody{
+.AppBody {
   padding: 2rem 4rem;
   flex: 1;
 }
-.glass{
+.glass {
   /* From https://css.glass */
-background: rgba(255, 255, 255, 0.01);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(4px);
--webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.01);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-.border-glass-full{
+.border-glass-full {
   border: 1px solid rgba(255, 255, 255, 0.23);
   border-radius: 8px;
 }
-.border-glass-b{
+.border-glass-b {
   border-bottom: 1px solid rgba(255, 255, 255, 0.23);
   border-radius: 8px;
 }
-.border-glass-t{
+.border-glass-t {
   border-top: 1px solid rgba(255, 255, 255, 0.23);
   border-radius: 8px;
+}
+.animeLeft {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: animeLeft 0.3s forwards;
+}
+
+@keyframes animeLeft {
+  to {
+    opacity: 1;
+    transform: initial;
+  }
 }
