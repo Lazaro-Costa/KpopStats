@@ -130,3 +130,15 @@ export interface IGetIdol {
   group: Pick<IGetGroups, 'id' | 'name'>
   pictures: IGetPic
 }
+export interface Root {
+  id: number
+  createdAt: string
+  updatedAt: string
+  username: string
+}
+export interface IUserEntity {
+  id: number
+  createdAt: string
+  updatedAt: string
+  username: string
+}
