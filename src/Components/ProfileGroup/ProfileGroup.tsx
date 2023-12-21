@@ -45,7 +45,7 @@ const ProfileGroups = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch(`${apiBase}/groups/${id}`).then(res => res.json()),
+      fetch(`${apiBase}/groups/find/${id}`).then(res => res.json()),
       fetch(`${apiBase}/groups/related/${id}`).then(res => res.json()),
     ])
       .then(([idolData, relatedData]) => {

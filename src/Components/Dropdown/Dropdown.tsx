@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
 
-type EntityGet = IGetCompanys | IGetGroups;
+type EntityGet = IGetCompanys | IGetGroups | Partial<IGetCompanys> | Partial<IGetGroups>;
 
 interface DropdownSelectProps {
-  options: EntityGet[];
+  options: EntityGet[] | any;
   onSelect: (option: EntityGet) => void;
   handleLoad: () => void;
 }
@@ -18,7 +18,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
   const [selectedOption, setSelectedOption] = useState<EntityGet | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleOptionClick = (option: EntityGet) => {
+  const handleOptionClick = (option: EntityGet ) => {
     setSelectedOption(option);
     onSelect(option);
     setIsOpen(false);
