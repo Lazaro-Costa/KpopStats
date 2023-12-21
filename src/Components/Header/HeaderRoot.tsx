@@ -56,13 +56,20 @@ const HeaderRoot: React.FC = () => {
               <div className="justify-self-end items-center flex gap-2 justify-center h-full">
                 <Link
                   to={'/cadastro'}
-                  className="flex text-slate-200 justify-self-end items-center h-full px-6 py-0 rounded-lg bg-emerald-800 hover:border hover:outline-2 hover:border-emerald-500"
+                  className="flex text-slate-200 justify-self-end items-center h-full px-6 py-0 rounded-lg bg-zinc-800 hover:border hover:outline-2 hover:border-emerald-500"
                 >
                   Cadastro
                 </Link>
 
+                <Link
+                  to={'/update'}
+                  className="flex text-slate-200 justify-self-end items-center h-full px-6 py-0 rounded-lg bg-zinc-800 hover:border hover:outline-2 hover:border-yellow-500"
+                >
+                  Update
+                </Link>
+
                 <button
-                  className="flex text-slate-200 items-center h-full px-6 py-0 rounded-lg bg-red-800 hover:border hover:outline-2 hover:border-red-500"
+                  className="flex text-slate-200 items-center h-full px-6 py-0 rounded-lg bg-zinc-800 hover:border hover:outline-2 hover:border-red-500"
                   onClick={handleLogout}
                 >
                   Sair

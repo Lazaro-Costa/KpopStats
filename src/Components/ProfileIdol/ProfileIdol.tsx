@@ -49,7 +49,7 @@ const ProfileIdol = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch(`${apiBase}/idols/${id}`).then(res => res.json()),
+      fetch(`${apiBase}/idols/find${id}`).then(res => res.json()),
       fetch(`${apiBase}/idols/related/${id}`).then(res => res.json()),
     ])
       .then(([idolData, relatedData]) => {

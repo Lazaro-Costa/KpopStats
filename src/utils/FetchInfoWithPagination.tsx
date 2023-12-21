@@ -40,7 +40,7 @@ function FetchInfoWithPagination({
     fetchAux();
   }, [page]);
 
-  return { loading };
+  return { loading, verifyContent };
 };
 
 export default FetchInfoWithPagination;

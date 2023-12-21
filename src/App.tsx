@@ -12,6 +12,7 @@ import { useUserStore } from './UserZustand';
 import React from 'react';
 import ProtectedRouter from './Components/Helper/ProtectedRouter';
 import NotFound from './Components/Helper/NotFound';
+import UpdateProvider from './Components/Update/UpdateProvider';
 function App() {
   const { autoLogin } = useUserStore();
 
@@ -41,6 +42,15 @@ function App() {
                 </ProtectedRouter>
               }
               key="cadastro"
+            />
+            <Route
+              path="update/*"
+              element={
+                <ProtectedRouter>
+                  <UpdateProvider />
+                </ProtectedRouter>
+              }
+              key="update"
             />
             <Route path='*' element={<NotFound />} key='404'/>
           </Routes>

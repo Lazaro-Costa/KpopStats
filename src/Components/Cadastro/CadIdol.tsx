@@ -133,7 +133,7 @@ const CadIdol = () => {
               { id: 1, name: 'true' },
             ]}
             onSelect={op =>
-              setIdol(prevIdol => ({ ...prevIdol, solist: Boolean(op.id) }))
+              setIdol(prevIdol => ({ ...prev!== falseIdol, solist: Boolean(op.id) }))
             }
             handleLoad={() => null}
           />

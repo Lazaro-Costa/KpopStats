@@ -1,9 +1,10 @@
 import React from 'react';
 import style from './CSS/Input.module.css'
 
-type Iinput = React.ComponentProps<'input'> &{
-  req: boolean;
-  content: string;
+type Iinput = React.InputHTMLAttributes<HTMLInputElement> & {
+  req?: boolean | undefined;
+  content: React.LabelHTMLAttributes<HTMLLabelElement>;
+  rest?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 const Input = ({req=true, content, ...rest }: Iinput) => {
   const id = Math.random().toString(36).substring(2, 15)

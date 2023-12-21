@@ -53,7 +53,7 @@ const ProfileCompany = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch(`${apiBase}/companys/${id}`).then(res => res.json()),
+      fetch(`${apiBase}/companys/find/${id}`).then(res => res.json()),
       fetch(`${apiBase}/companys/related/${id}`).then(res => res.json()),
     ])
       .then(([CompanyData, relatedData]) => {
