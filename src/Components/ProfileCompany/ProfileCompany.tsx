@@ -10,6 +10,7 @@ import IsGroup from '../ProfileGroup/ObjectInfo/IsGroup';
 import { FlipCard } from '../Card/FlipCard';
 import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
 import { IGetCompanyRelated } from '../ProfileIdol/IGetRelated';
+import { dateToString } from '../../utils/dateToString';
 
 type IGetCompanyProfile = {
   Name: string;
@@ -31,7 +32,7 @@ const ProfileCompany = () => {
   function convertToInfo(data: IGetCompanys): IGetCompanyProfile {
     return {
       Name: data.name,
-      'Founding Date': new Date(data.founding_date).toLocaleDateString(),
+      'Founding Date': dateToString(data.founding_date),
       Headquarters: data.headquarters,
       CEO: data.ceo,
     };

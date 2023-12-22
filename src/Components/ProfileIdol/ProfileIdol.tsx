@@ -1,6 +1,5 @@
 import React from 'react';
 import Loading from '../Loading/Loading';
-import { Idol } from '../../Interfaces/Interfaces.api';
 import { apiBase } from '../Helper/Variables';
 import { useParams } from 'react-router-dom';
 import { PG } from '../ProfileGroup/utils';
@@ -8,9 +7,12 @@ import Head from '../Helper/Head';
 import PG_Container from '../ProfileGroup/utils/PG_Container';
 import IsGroup from '../ProfileGroup/ObjectInfo/IsGroup';
 import CardProvider from '../Card/CardProvider/CardProvider';
-import { IGetRelated } from './IGetRelated';
+
 import RelatedIdol from './relatedIdol/RelatedIdol';
-type IGetIdol = {
+import { dateToString } from '../../utils/dateToString';
+import { IGetIdolRelated } from './IGetRelated';
+import { IGetIdol } from '../../Interfaces/Interfaces.api';
+type InfoIdol = {
   Name: string;
   'Birth name': string;
   'Birth date': string;
@@ -19,15 +21,15 @@ type IGetIdol = {
 };
 const ProfileIdol = () => {
   const { id } = useParams();
-  const [data, setData] = React.useState<Idol>({} as Idol);
-  const [info, setInfo] = React.useState<IGetIdol>({} as IGetIdol);
-  const [related, setRelated] = React.useState<IGetRelated>({} as IGetRelated);
+  const [data, setData] = React.useState<IGetIdol>({} as IGetIdol);
+  const [info, setInfo] = React.useState<InfoIdol>({} as InfoIdol);
+  const [related, setRelated] = React.useState<IGetIdolRelated>({} as IGetIdolRelated);
 
-  function convertToInfo(data: Idol): IGetIdol {
+  function convertToInfo(data: IGetIdol): InfoIdol {
     return {
       Name: data.name,
       'Birth name': data.korean_name,
-      'Birth date': new Date(data.date_birth).toLocaleDateString(),
+      'Birth date': dateToString(data.date_birth),
       'Foreign name': data.foreign_name ? data.foreign_name : 'N/A',
       'Birth place': data.nationality ? data.nationality : 'N/A',
     };
@@ -53,9 +55,9 @@ const ProfileIdol = () => {
       fetch(`${apiBase}/idols/related/${id}`).then(res => res.json()),
     ])
       .then(([idolData, relatedData]) => {
-        setData(idolData as Idol);
-        setInfo(convertToInfo(idolData as Idol));
-        setRelated(relatedData as IGetRelated);
+        setData(idolData as IGetIdol);
+        setInfo(convertToInfo(idolData as IGetIdol));
+        setRelated(relatedData as IGetIdolRelated);
       })
       .catch(err => {
         console.error('Error fetching data:', err);

@@ -1,4 +1,4 @@
-export type IGetEntities = IGetGroups | IGetPic | IGetCompanys | IGetIdol;
+export type IGetEntities =  IGetGroups | IGetPic | IGetCompanys | IGetIdol;
 export interface ICreatePic{
   name: string
   urls_profile?: string[]

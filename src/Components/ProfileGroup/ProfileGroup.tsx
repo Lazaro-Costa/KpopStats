@@ -10,6 +10,7 @@ import Loading from '../Loading/Loading';
 import CardProvider from '../Card/CardProvider/CardProvider';
 import RelatedGroup from './RelatedGroup/RelatedGroup';
 import { IGetRelatedGroup } from './RelatedGroup/IGetRelatedGroup';
+import { dateToString } from '../../utils/dateToString';
 
 const ProfileGroups = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const ProfileGroups = () => {
       Name: data.name,
       'Fandom Name': data.fandom_name,
       Debut: data.debut_date
-        ? new Date(data.debut_date).toLocaleDateString()
+        ? dateToString(data.debut_date)
         : 'N/A',
       Company: data.company.name,
     };
