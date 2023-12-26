@@ -117,7 +117,7 @@ const CadGroup = () => {
         />
         <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
           <h1 className="text-slate-200 text-3xl">Company ID</h1>
-          <DropdownSelect
+          <DropdownSelect<IGetCompanys>
             options={companys}
             onSelect={company =>
               setGroup(prevGroup => ({ ...prevGroup, companyId: company.id }))

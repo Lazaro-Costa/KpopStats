@@ -133,7 +133,7 @@ const CadIdol = () => {
               { id: 1, name: 'true' },
             ]}
             onSelect={op =>
-              setIdol(prevIdol => ({ ...prev!== falseIdol, solist: Boolean(op.id) }))
+              setIdol(prevIdol => ({ ...prevIdol, solist: Boolean(op.id) }))
             }
             handleLoad={() => null}
           />
@@ -141,7 +141,7 @@ const CadIdol = () => {
         {idol.solist === false && (
           <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
             <h1 className="text-slate-200 text-3xl">Groups</h1>
-            <DropdownSelect
+            <DropdownSelect<IGetGroups>
               options={groups}
               onSelect={group =>
                 setIdol(prevIdol => ({
@@ -158,7 +158,7 @@ const CadIdol = () => {
         {idol.solist === true && (
           <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
             <h1 className="text-slate-200 text-3xl">Companys</h1>
-            <DropdownSelect
+            <DropdownSelect<IGetCompanys>
               options={companys}
               onSelect={company =>
                 setIdol(prevIdol => ({ ...prevIdol, companyId: company.id }))

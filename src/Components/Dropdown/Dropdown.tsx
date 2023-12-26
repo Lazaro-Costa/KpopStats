@@ -1,24 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
+import React from "react";
 
-type EntityGet = IGetCompanys | IGetGroups | Partial<IGetCompanys> | Partial<IGetGroups>;
-
-interface DropdownSelectProps {
-  options: EntityGet[] | any;
-  onSelect: (option: EntityGet) => void;
+interface DropdownSelectProps<T> {
+  options: T[];
+  onSelect: (option: T) => void;
   handleLoad: () => void;
 }
 
-const DropdownSelect: React.FC<DropdownSelectProps> = ({
+const DropdownSelect = <T extends { id?: number; name?: string }>({
   options,
   onSelect,
   handleLoad,
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<EntityGet | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+}: DropdownSelectProps<T>) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = React.useState<T | null>(null);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
 
-  const handleOptionClick = (option: EntityGet ) => {
+  const handleOptionClick = (option ) => {
     setSelectedOption(option);
     onSelect(option);
     setIsOpen(false);
@@ -44,7 +41,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.addEventListener('mousedown', closeDropdown);
     return () => {
       document.removeEventListener('mousedown', closeDropdown);

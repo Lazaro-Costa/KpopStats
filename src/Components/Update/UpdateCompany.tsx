@@ -12,6 +12,7 @@ import UpdateImgs from './UpdateImgs';
 import { Label } from '../Label';
 import funcUpdate from './funcUpdate';
 import { dateToString } from '../../utils/dateToString';
+import ShowImages from './showImages';
 
 const UpdateCompany = () => {
   const boxStyle =
@@ -61,7 +62,7 @@ const UpdateCompany = () => {
       <FormGroup>
         <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
           <h1 className="text-slate-200 text-3xl">Company</h1>
-          <DropdownSelect
+          <DropdownSelect<IGetCompanys>
             options={atual}
             onSelect={company => setCompany(company)}
             handleLoad={() => setPage(page + 1)}
@@ -128,7 +129,11 @@ const UpdateCompany = () => {
               }
             />
             </div>
-            <UpdateImgs pics={company} setCompany={setCompany} />
+            <UpdateImgs>
+              <ShowImages
+                pics={company.pictures}
+              />
+            </UpdateImgs>
           </>
         )}
         <div className="flex w-full justify-center items-center">
@@ -139,5 +144,5 @@ const UpdateCompany = () => {
     </FormContainer>
   );
 };
-//Criar a parte de tratamento do objeto para enviar para o backend
+
 export default UpdateCompany;

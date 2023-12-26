@@ -19,12 +19,16 @@ export class UpdateEntity{
     return response.json();
   }
   public async updatePic(id:number, pics: Partial<ICreatePic>) {
+    const data = {
+      ...pics,
+      name: `PICS_${this.entity.name}`,
+    }
     const response = await fetch(`${apiBase}/pics/update/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(pics),
+      body: JSON.stringify(data),
       // credentials: 'include',
     });
     if (!response.ok) throw new Error(`Error: ${response.status}`);
