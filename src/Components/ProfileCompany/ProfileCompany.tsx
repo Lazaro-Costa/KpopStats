@@ -11,6 +11,7 @@ import { FlipCard } from '../Card/FlipCard';
 import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
 import { IGetCompanyRelated } from '../ProfileIdol/IGetRelated';
 import { dateToString } from '../../utils/dateToString';
+import AuxImage from '../ImageModal/AuxImage';
 
 type IGetCompanyProfile = {
   Name: string;
@@ -81,12 +82,7 @@ const ProfileCompany = () => {
           key={data.pictures.profiles[0].id} //add pictures to api
           className="max-w-4xl rounded-lg overflow-hidden shadow-lg m-4"
         >
-          <img
-            loading="lazy"
-            src={data.pictures.profiles[0].url}
-            alt={data.name}
-            className="object-cover"
-          />
+          <AuxImage pictures={data.pictures}/>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-3">
           <div

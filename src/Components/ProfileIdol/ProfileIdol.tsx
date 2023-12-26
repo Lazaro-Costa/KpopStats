@@ -12,6 +12,7 @@ import RelatedIdol from './relatedIdol/RelatedIdol';
 import { dateToString } from '../../utils/dateToString';
 import { IGetIdolRelated } from './IGetRelated';
 import { IGetIdol } from '../../Interfaces/Interfaces.api';
+import AuxImage from '../ImageModal/AuxImage';
 type InfoIdol = {
   Name: string;
   'Birth name': string;
@@ -51,7 +52,7 @@ const ProfileIdol = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch(`${apiBase}/idols/find${id}`).then(res => res.json()),
+      fetch(`${apiBase}/idols/find/${id}`).then(res => res.json()),
       fetch(`${apiBase}/idols/related/${id}`).then(res => res.json()),
     ])
       .then(([idolData, relatedData]) => {
@@ -79,12 +80,9 @@ const ProfileIdol = () => {
           key={data.pictures.profiles[0].id}
           className="max-w-4xl rounded-lg overflow-hidden shadow-lg m-4"
         >
-          <img
-            loading="lazy"
-            src={data.pictures.profiles[0].url}
-            alt={data.name}
-            className="object-cover"
-          />
+
+          <AuxImage pictures={data.pictures}/>
+
         </div>
         <div className="grid grid-cols-2 gap-4 mb-3">
           <div
