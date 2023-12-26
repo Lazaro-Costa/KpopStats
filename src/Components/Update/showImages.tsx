@@ -4,16 +4,58 @@ import { apiBase } from '../Helper/Variables';
 import Loading from '../Loading/Loading';
 import Input from '../Form/Input/InputPlaceholder/Input';
 
-const ShowImages = ({ pics }: { pics: IGetPic }) => {
+const ShowImages = ({ picsId }: { picsId: number }) => {
   const btnStyle =
     'flex px-2 py-1 bg-red-500 items-center justify-center rounded-md';
   const divContainer =
     'flex flex-col gap-2 items-center justify-center rounded-lg overflow-hidden';
   const [isInput, setIsInput] = React.useState(false);
+  const [pics, setPics] = React.useState<IGetPic>({} as IGetPic);
   const [newProfile, setNewProfile] = React.useState({ url: '' });
   const [newBanner, setNewBanner] = React.useState({ url: '' });
   const [load, setLoad] = React.useState(false);
   const [error, setError] = React.useState<Error | null | boolean>(null);
+  const [controller, setController] = React.useState(false); //a cada vez que muda, faz fetch do picsId
+  React.useEffect(() => {
+    async function initialFetch() {
+      try {
+        setLoad(true);
+        setError(false);
+        const response = await fetch(`${apiBase}/pics/find/${picsId}`);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        const data = await response.json();
+        if (data) setPics(data);
+      } catch (err) {
+        if (err instanceof Error) setError(err);
+        console.log(error);
+      } finally {
+        setLoad(false);
+      }
+    }
+
+    initialFetch();
+  }, [])
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoad(true);
+        setError(false);
+        const response = await fetch(`${apiBase}/pics/find/${picsId}`);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        const data = await response.json();
+        if (data) setPics(data);
+      } catch (err) {
+        if (err instanceof Error) setError(err);
+        console.log(error);
+    }finally {
+      setLoad(false);
+    }
+  }
+
+  fetchData();
+  }, [controller]);
+
   const handleExclude = async (e, id, uri) => {
     e.preventDefault();
     try {
@@ -30,6 +72,7 @@ const ShowImages = ({ pics }: { pics: IGetPic }) => {
       console.log(error);
     } finally {
       setLoad(false);
+      setController(!controller);
     }
   };
   const handleModify = async (uri, id) => {
@@ -54,6 +97,7 @@ const ShowImages = ({ pics }: { pics: IGetPic }) => {
       } finally {
         setIsInput(false);
         setLoad(false);
+        setController(!controller);
       }
     }
   };
@@ -125,5 +169,4 @@ const ShowImages = ({ pics }: { pics: IGetPic }) => {
     </div>
   );
 };
-//Fazer mais testes para ver bugs, se não tiver, criar os outros forms de update
 export default ShowImages;

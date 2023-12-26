@@ -1,45 +1,44 @@
+import React from 'react'
 import FormContainer from '../Form/FormContainer/FormContainer';
 import FormGroup from '../Form/FormGroup/FormGroup';
-import Button from '../Button/Button';
-import Loading from '../Loading/Loading';
-import FetchWithPage from '../../utils/FetchWithPage';
-import React from 'react';
-import { IGetCompanys } from '../../Interfaces/Interfaces.api';
 import DropdownSelect from '../Dropdown/Dropdown';
+import { IGetGroups } from '../../Interfaces/Interfaces.api';
+import { Label } from '../Label';
 import Input from '../Form/Input/InputPlaceholder/Input';
 import InputDate from '../Form/Input/InputDate/InputDate';
 import UpdateImgs from './UpdateImgs';
-import { Label } from '../Label';
-import funcUpdate from './funcUpdate';
-import { dateToString } from '../../utils/dateToString';
 import ShowImages from './showImages';
+import FetchWithPage from '../../utils/FetchWithPage';
+import funcUpdate from './funcUpdate';
+import Loading from '../Loading/Loading';
+import Button from '../Button/Button';
+import { dateToString } from '../../utils/dateToString';
 
-const UpdateCompany = () => {
+const UpdateGroup = () => {
   const boxStyle =
     'flex flex-col gap-4 items-center justify-center p-2 bg-zinc-800 rounded-lg';
-  const [company, setCompany] = React.useState<IGetCompanys | null>(null);
+  const [group, setGroup] = React.useState<IGetGroups | null>(null);
   const [load, setLoad] = React.useState(false);
-  const [modified, setModified] = React.useState<Partial<IGetCompanys>>({
+  const [modified, setModified] = React.useState<Partial<IGetGroups>>({
     name: '',
-    founding_date: '',
-    headquarters: '',
-    ceo: '',
+    debut_date: '',
+    fandom_name: '',
     more_info: '',
   });
-  const [atual, setAtual] = React.useState<IGetCompanys[]>([]);
+  const [atual, setAtual] = React.useState<IGetGroups[]>([]);
   const [page, setPage] = React.useState(1);
-  const { fetchLoad, fetchError } = FetchWithPage<IGetCompanys>(
-    'companys/resume',
+  const { fetchLoad, fetchError } = FetchWithPage<IGetGroups>(
+    'groups/resume',
     atual,
     setAtual,
     page,
   );
   const handleClick = async (e) => {
     e.preventDefault();
-    if(company?.id){
+    if(group?.id){
       try{
         setLoad(true);
-        const response = await funcUpdate(company.id, modified);
+        const response = await funcUpdate(group.id, modified);
         if(response) console.log(response);
       }catch(err){
         console.log(err);
@@ -61,17 +60,17 @@ const UpdateCompany = () => {
     <FormContainer>
       <FormGroup>
         <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
-          <h1 className="text-slate-200 text-3xl">Company</h1>
-          <DropdownSelect<IGetCompanys>
+          <h1 className="text-slate-200 text-3xl">Group</h1>
+          <DropdownSelect<IGetGroups>
             options={atual}
-            onSelect={company => setCompany(company)}
+            onSelect={group => setGroup(group)}
             handleLoad={() => setPage(page + 1)}
           />
         </div>
-        {company && (
+        {group && (
           <>
             <div className={boxStyle}>
-              <Label.Small text={company.name} />
+              <Label.Small text={group.name} />
               <Input
                 content={'Name'}
                 value={modified.name}
@@ -84,42 +83,32 @@ const UpdateCompany = () => {
 
             <div className={boxStyle}>
               <Label.Small
-                text={dateToString(company.founding_date)}
+                text={dateToString(group.debut_date)}
               />
               <InputDate
-                label={'Founding date'}
-                value={modified.founding_date}
+                label={'Debut date'}
+                value={modified.debut_date}
                 onChange={({target}) => {
                   setModified({
                     ...modified,
-                    founding_date:target.value,
+                    debut_date:target.value,
                   });
                 }}
               />
             </div>
 
             <div className={boxStyle}>
-              <Label.Small text={company.headquarters} />
+              <Label.Small text={group.fandom_name} />
               <Input
                 req={false}
-                content={'Headquarters'}
-                value={modified.headquarters}
-                onChange={({target}) => setModified({...modified, headquarters: target.value})}
+                content={'Fandom Name'}
+                value={modified.fandom_name}
+                onChange={({target}) => setModified({...modified, fandom_name: target.value})}
               />
             </div>
 
             <div className={boxStyle}>
-              <Label.Small text={company.ceo} />
-            <Input
-              req={false}
-              content={'Ceo'}
-              value={modified.ceo}
-              onChange={({target}) => setModified({ ...modified, ceo: target.value })}
-            />
-            </div>
-
-            <div className={boxStyle}>
-              <Label.Small text={company.more_info} />
+              <Label.Small text={group.more_info} />
             <Input
               req={false}
               content={'More Info'}
@@ -131,18 +120,18 @@ const UpdateCompany = () => {
             </div>
             <UpdateImgs>
               <ShowImages
-                picsId={company.picsId}
+                picsId={group.picsId}
               />
             </UpdateImgs>
           </>
         )}
         <div className="flex w-full justify-center items-center">
-          {handleLoad()}
-        </div>
-      </FormGroup>
+        {handleLoad()}
+      </div>
+        </FormGroup>
       <pre>{JSON.stringify({ modified }, null, 2)}</pre>
     </FormContainer>
-  );
-};
-
-export default UpdateCompany;
+  )
+}
+// Criar o Update Idol
+export default UpdateGroup

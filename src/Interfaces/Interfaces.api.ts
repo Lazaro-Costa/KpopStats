@@ -48,6 +48,7 @@ export interface IGetCompanys{
   headquarters: string
   founding_date: string
   more_info: string
+  picsId: number
   pictures: IGetPic
 }
 export interface ICreateGroup{
