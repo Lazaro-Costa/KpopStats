@@ -1,48 +1,50 @@
+import React from 'react'
 import FormContainer from '../Form/FormContainer/FormContainer';
-import FormGroup from '../Form/FormGroup/FormGroup';
-import Button from '../Button/Button';
-import Loading from '../Loading/Loading';
-import FetchWithPage from '../../utils/FetchWithPage';
-import React from 'react';
-import { IGetCompanys } from '../../Interfaces/Interfaces.api';
 import DropdownSelect from '../Dropdown/Dropdown';
+import { Label } from '../Label';
 import Input from '../Form/Input/InputPlaceholder/Input';
 import InputDate from '../Form/Input/InputDate/InputDate';
 import UpdateImgs from './UpdateImgs';
-import { Label } from '../Label';
-import funcUpdate from './funcUpdate';
-import { dateToString } from '../../utils/dateToString';
 import ShowImages from './showImages';
+import FetchWithPage from '../../utils/FetchWithPage';
+import funcUpdate from './funcUpdate';
+import Loading from '../Loading/Loading';
+import Button from '../Button/Button';
+import { dateToString } from '../../utils/dateToString';
+import { IGetIdol } from '../../Interfaces/Interfaces.api';
+import FormGroup from '../Form/FormGroup/FormGroup';
 
-const UpdateCompany = () => {
+const UpdateIdol = () => {
   const boxStyle =
     'flex flex-col gap-4 items-center justify-center p-2 bg-zinc-800 rounded-lg';
-  const [company, setCompany] = React.useState<IGetCompanys | null>(null);
+  const [idol, SetIdol] = React.useState<IGetIdol | null>(null);
   const [load, setLoad] = React.useState(false);
-  const [modified, setModified] = React.useState<Partial<IGetCompanys>>({
+  const [modified, setModified] = React.useState<Partial<IGetIdol>>({
     name: '',
-    founding_date: '',
-    headquarters: '',
-    ceo: '',
+    date_birth: '',
+    foreign_name: '',
+    korean_name: '',
+    nationality: '',
     more_info: '',
   });
-  const [atual, setAtual] = React.useState<IGetCompanys[]>([]);
+  const [atual, setAtual] = React.useState<IGetIdol[]>([]);
   const [page, setPage] = React.useState(1);
-  const { fetchLoad, fetchError } = FetchWithPage<IGetCompanys>(
-    'companys/resume',
+  const { fetchLoad, fetchError } = FetchWithPage<IGetIdol>(
+    'idols/resume',
     atual,
     setAtual,
     page,
   );
   const handleClick = async (e) => {
     e.preventDefault();
-    if(company?.id){
+    if(idol?.id){
       try{
         setLoad(true);
-        const response = await funcUpdate(company.id, 'companys', modified);
-        if(response) console.log(response);
+        const response = await funcUpdate(idol.id, 'idols', modified);
+        if(!response) throw new Error(`Error: ${response}`);
       }catch(err){
-        console.log(err);
+        if(err instanceof Error)
+        console.log(err.message);
       }finally{
         setLoad(false);
       }
@@ -61,17 +63,17 @@ const UpdateCompany = () => {
     <FormContainer>
       <FormGroup>
         <div className="w-full bg-zinc-800 p-4 gap-2 rounded-lg flex flex-col justify-center items-center">
-          <h1 className="text-slate-200 text-3xl">Company</h1>
-          <DropdownSelect<IGetCompanys>
+          <h1 className="text-slate-200 text-3xl">Idol</h1>
+          <DropdownSelect<IGetIdol>
             options={atual}
-            onSelect={company => setCompany(company)}
+            onSelect={idol => SetIdol(idol)}
             handleLoad={() => setPage(page + 1)}
           />
         </div>
-        {company && (
+        {idol && (
           <>
             <div className={boxStyle}>
-              <Label.Small text={company.name} />
+              <Label.Small text={idol.name} />
               <Input
                 content={'Name'}
                 value={modified.name}
@@ -84,42 +86,52 @@ const UpdateCompany = () => {
 
             <div className={boxStyle}>
               <Label.Small
-                text={dateToString(company.founding_date)}
+                text={dateToString(idol.date_birth)}
               />
               <InputDate
-                label={'Founding date'}
-                value={modified.founding_date}
+                label={'Debut Birth'}
+                value={modified.date_birth}
                 onChange={({target}) => {
                   setModified({
                     ...modified,
-                    founding_date:target.value,
+                    date_birth:target.value,
                   });
                 }}
               />
             </div>
 
             <div className={boxStyle}>
-              <Label.Small text={company.headquarters} />
+              <Label.Small text={idol.korean_name} />
               <Input
                 req={false}
-                content={'Headquarters'}
-                value={modified.headquarters}
-                onChange={({target}) => setModified({...modified, headquarters: target.value})}
+                content={'Birth Name'}
+                value={modified.korean_name}
+                onChange={({target}) => setModified({...modified, korean_name: target.value})}
               />
             </div>
 
             <div className={boxStyle}>
-              <Label.Small text={company.ceo} />
-            <Input
-              req={false}
-              content={'Ceo'}
-              value={modified.ceo}
-              onChange={({target}) => setModified({ ...modified, ceo: target.value })}
-            />
+              <Label.Small text={idol.foreign_name} />
+              <Input
+                req={false}
+                content={'Foreign Name'}
+                value={modified.foreign_name}
+                onChange={({target}) => setModified({...modified, foreign_name: target.value})}
+              />
             </div>
 
             <div className={boxStyle}>
-              <Label.Small text={company.more_info} />
+              <Label.Small text={idol.nationality} />
+              <Input
+                req={false}
+                content={'Nationality'}
+                value={modified.nationality}
+                onChange={({target}) => setModified({...modified, nationality: target.value})}
+              />
+            </div>
+
+            <div className={boxStyle}>
+              <Label.Small text={idol.more_info} />
             <Input
               req={false}
               content={'More Info'}
@@ -131,18 +143,18 @@ const UpdateCompany = () => {
             </div>
             <UpdateImgs>
               <ShowImages
-                picsId={company.picsId}
+                picsId={idol.picsId}
               />
             </UpdateImgs>
           </>
         )}
         <div className="flex w-full justify-center items-center">
-          {handleLoad()}
-        </div>
-      </FormGroup>
+        {handleLoad()}
+      </div>
+        </FormGroup>
       <pre>{JSON.stringify({ modified }, null, 2)}</pre>
     </FormContainer>
-  );
-};
-
-export default UpdateCompany;
+  )
+}
+// TODO: Criar o Update Idol
+export default UpdateIdol

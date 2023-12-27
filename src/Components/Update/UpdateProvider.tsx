@@ -3,6 +3,7 @@ import Head from '../Helper/Head';
 import UpdateCompany from './UpdateCompany';
 import DropdownSelect from '../Dropdown/Dropdown';
 import UpdateGroup from './UpdateGroup';
+import UpdateIdol from './UpdateIdol';
 
 const UpdateProvider = () => {
   const [state, setState] = React.useState(null);
@@ -37,7 +38,7 @@ const UpdateProvider = () => {
           <UpdateCompany />
         ) : state.id === 2 ? (
           <UpdateGroup />
-        ) : null}
+        ) : <UpdateIdol />}
       </section>
     </div>
   );

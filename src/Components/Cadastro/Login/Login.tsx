@@ -16,7 +16,7 @@ const Login = () => {
   React.useEffect(() => {
     if(user?.username){
       navigate('/');
-    }else console.log("Login useEffect " + user);
+    }
   }, [user])
 
 
