@@ -4,10 +4,10 @@ import { ICreateCompany, ICreateGroup, ICreateIdol, ICreatePic, } from "../Inter
 type Entity = Partial<ICreateCompany | ICreateGroup | ICreateIdol>
 
 export class UpdateEntity{
-  constructor(readonly entity: Entity) {
+  constructor(readonly entity: Entity, readonly uri: string) {
   }
   public async updateEntity(id: number) {
-    const response = await fetch(`${apiBase}/companys/update/${id}`, {
+    const response = await fetch(`${apiBase}/${this.uri}/update/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

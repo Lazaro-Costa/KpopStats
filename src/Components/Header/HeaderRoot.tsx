@@ -24,9 +24,6 @@ const HeaderRoot: React.FC = () => {
     logout();
     window.location.reload();
   };
-  React.useEffect(() => {
-    console.log('Header useEffect ' + user?.username);
-  }, [user]);
   return (
     <header
       className={`glass border-glass-b text-slate-50 w-full h-16 fixed top-0 transition-all duration-300 ${

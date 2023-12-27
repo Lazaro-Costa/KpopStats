@@ -90,7 +90,6 @@ const ShowImages = ({ picsId }: { picsId: number }) => {
           body: JSON.stringify(uri === 'banners' ? newBanner : newProfile),
         });
         if (!response.ok) throw new Error(`Error: ${response.status}`);
-        console.log(await response.json());
       } catch (err) {
         console.log(err);
         if(err instanceof Error) setError(err);

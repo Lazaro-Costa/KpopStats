@@ -38,7 +38,7 @@ const UpdateGroup = () => {
     if(group?.id){
       try{
         setLoad(true);
-        const response = await funcUpdate(group.id, modified);
+        const response = await funcUpdate(group.id, 'groups', modified);
         if(response) console.log(response);
       }catch(err){
         console.log(err);
@@ -133,5 +133,5 @@ const UpdateGroup = () => {
     </FormContainer>
   )
 }
-// Criar o Update Idol
+// TODO: Criar o Update Idol
 export default UpdateGroup
