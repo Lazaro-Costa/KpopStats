@@ -13,9 +13,10 @@ export class UpdateEntity{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.entity),
-      // credentials: 'include',
+      credentials: 'include',
     });
-    if (!response.ok) throw new Error(`Error: ${response.status}`);
+    if (!response.ok) console.log(response);
+
     return response.json();
   }
   public async updatePic(id:number, pics: Partial<ICreatePic>) {
@@ -29,7 +30,7 @@ export class UpdateEntity{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-      // credentials: 'include',
+      credentials: 'include',
     });
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     return response.json();

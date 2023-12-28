@@ -13,9 +13,9 @@ import InputComponent from '../Form/Input/InputComponent/InputComponent';
 import { CreateEntity } from '../../utils/CreateEntity';
 import DropdownSelect from '../Dropdown/Dropdown';
 import Button from '../Button/Button';
-import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
 import { apiBase } from '../Helper/Variables';
 import Loading from '../Loading/Loading';
+import FetchWithPage from '../../utils/FetchWithPage';
 
 const CadIdol = () => {
   const [idol, setIdol] = React.useState<ICreateIdol>({
@@ -44,18 +44,18 @@ const CadIdol = () => {
   const [erro, setErro] = React.useState<Error | Boolean>(false);
   const [result, setResult] = React.useState<string>('');
   const [showOriginalButton, setShowOriginalButton] = React.useState(true);
-  FetchInfoWithPagination({
-    uri: 'groups',
-    entity: groups,
+  FetchWithPage(
+    'groups',
+    groups,
+    setGroups,
     page,
-    setEntity: setGroups,
-  });
-  FetchInfoWithPagination({
-    uri: 'companys',
-    entity: companys,
-    page: pageCo,
-    setEntity: setCompanys,
-  });
+  );
+  FetchWithPage(
+    'companys',
+    companys,
+    setCompanys,
+    pageCo,
+  );
 
   const handleClick = async e => {
     e.preventDefault();
@@ -69,7 +69,7 @@ const CadIdol = () => {
       const CreateGroup = new CreateEntity(data, pics);
       const response = await CreateGroup.createEntity(`${apiBase}/idols`);
       if (response) {
-        setLoad(false);
+        // setLoad(false);
         setResult('Deu certo!');
         setIdol({
           name: '',
@@ -91,6 +91,7 @@ const CadIdol = () => {
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) setErro(error);
     }finally {
       setLoad(false);
     }

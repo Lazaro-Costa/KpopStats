@@ -63,7 +63,7 @@ const ShowImages = ({ picsId }: { picsId: number }) => {
       setError(false);
       const response  = await fetch(`${apiBase}/${uri}/del/${id}`, {
         method: 'DELETE',
-        // credentials: 'include',
+        credentials: 'include',
       });
       if(!response.ok) throw new Error(`Error: ${response.status}`);
       console.log(await response.json());

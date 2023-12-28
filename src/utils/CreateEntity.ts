@@ -12,16 +12,17 @@ export class CreateEntity{
       ...this.entity,
       picsId: id,
     }
-    console.log("Dados enviados: ",data)
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     });
     if (!response.ok) throw new Error(`Error: ${response.status}`);
-    return (await response.json());
+    return response.json();
   }
   public async createPic(url:string): Promise<IGetPic> {
     const data = {
@@ -34,6 +35,7 @@ export class CreateEntity{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     });
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     return (await response.json());

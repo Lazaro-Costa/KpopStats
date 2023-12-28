@@ -27,6 +27,7 @@ const CadCompany = () => {
   const [load, setLoad] = React.useState(false);
   const [erro, setErro] = React.useState<Error | Boolean>(false);
   const [result, setResult] = React.useState<string>('');
+  const [showOriginalButton, setShowOriginalButton] = React.useState(true);
 
   const handleClick = async e => {
     e.preventDefault();
@@ -39,9 +40,9 @@ const CadCompany = () => {
       };
       const CreateCompany = new CreateEntity(data, pics);
       const response = await CreateCompany.createEntity(`${apiBase}/companys`);
-      if (response.ok) {
+      if (response) {
+        // setLoad(false);
         setResult('Deu certo!');
-        console.log(response);
         setCompany({
           name: '',
           founding_date: '',
@@ -68,10 +69,24 @@ const CadCompany = () => {
       return <Loading />;
     } else if (erro !== false) {
       return <pre>{JSON.stringify(erro)}</pre>;
-    } else if (result !== '') {
-      return <pre>{result}</pre>;
+    } else if (result !== '' && showOriginalButton) {
+      // Mostra o botão desabilitado temporariamente por 2000ms
+      setTimeout(() => {
+        setShowOriginalButton(false);
+      }, 2000);
+
+      return <Button label={result} disabled />;
     } else {
-      return <Button label={'Cadastrar'} onClick={e => handleClick(e)} />;
+      // Se showOriginalButton for false, retorna o botão original
+      return (
+        <Button
+          label={'Cadastrar'}
+          onClick={(e) => {
+            handleClick(e);
+            setShowOriginalButton(true); // Restaura o estado do botão original
+          }}
+        />
+      );
     }
   };
   return (
