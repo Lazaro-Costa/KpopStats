@@ -1,4 +1,3 @@
-import React from 'react';
 import style from './CSS/Refresh.module.css';
 function Refresh({ ...props }) {
 
