@@ -9,6 +9,8 @@ const HeaderRoot: React.FC = () => {
   const [visible, setVisible] = React.useState(true);
   const { user, loading, logout } = useUserStore();
 
+  const styleButton = 'flex text-slate-200 text-xs sm:text-sm justify-self-end items-center h-6 sm:h-full px-1 py-0 md:px-6 sm:px-2  rounded-sm sm:rounded-lg bg-zinc-800 hover:border hover:outline-2'
+
   React.useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
@@ -26,7 +28,7 @@ const HeaderRoot: React.FC = () => {
   };
   return (
     <header
-      className={`glass border-glass-b text-slate-50 w-full h-16 fixed top-0 transition-all duration-300 ${
+      className={`glass border-glass-b text-slate-50 w-full h-14 sm:h-16 fixed top-0 transition-all duration-300 ${
         visible ? 'opacity-100' : 'opacity-0 -top-16'
       }`}
     >
@@ -37,7 +39,7 @@ const HeaderRoot: React.FC = () => {
           </Link>
         </nav>
 
-        <nav className="grid grid-cols-2 gap-4 w-full items-center ">
+        <nav className="grid grid-cols-2 gap-4 sm:gap-2 w-full items-center ">
           {loading ? (
             <div className="col-span-1 flex justify-self-end items-center w-full">
               Loading...
@@ -48,25 +50,25 @@ const HeaderRoot: React.FC = () => {
                 to={'/conta'}
                 className="col-span-1 flex text-slate-200 justify-self-end items-center h-full"
               >
-                {<Label.Small text={user.username} className={'text-lg'} />}
+                {<Label.Small text={user.username} className={'text-xs md:text-lg sm:text-md'} />}
               </Link>
               <div className="justify-self-end items-center flex gap-2 justify-center h-full">
                 <Link
                   to={'/cadastro'}
-                  className="flex text-slate-200 justify-self-end items-center h-full px-6 py-0 rounded-lg bg-zinc-800 hover:border hover:outline-2 hover:border-emerald-500"
+                  className={styleButton + " hover:border-emerald-500"}
                 >
                   Cadastro
                 </Link>
 
                 <Link
                   to={'/update'}
-                  className="flex text-slate-200 justify-self-end items-center h-full px-6 py-0 rounded-lg bg-zinc-800 hover:border hover:outline-2 hover:border-yellow-500"
+                  className={styleButton + " hover:border-yellow-500"}
                 >
                   Update
                 </Link>
 
                 <button
-                  className="flex text-slate-200 items-center h-full px-6 py-0 rounded-lg bg-zinc-800 hover:border hover:outline-2 hover:border-red-500"
+                  className={styleButton + " hover:border-red-500"}
                   onClick={handleLogout}
                 >
                   Sair
