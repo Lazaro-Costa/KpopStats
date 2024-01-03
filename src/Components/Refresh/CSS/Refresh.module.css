@@ -56,3 +56,20 @@
 .button:active {
   border: 1px solid #006cd0;
 }
+@media screen and (max-width: 767px) { /* Mobile */
+  .button {
+    width: 100px;
+    height: 25px;
+  }
+
+  .button .button__text {
+    transform: translateX(20px);
+    color: #fff;
+    font-weight: 400;
+  }
+
+  .button .button__icon {
+    width: 25px;
+  }
+
+}
