@@ -50,9 +50,9 @@ const Home = () => {
       ) : (
         <div className='animeLeft'>
           <div>
-            <div className="self-start w-full flex items-center justify-end m-2">
+            <div className="self-start w-full flex items-center justify-end m-4 sm:m-2">
               <span
-              className='text-[#0f0] text-xl font-mono mr-2'
+              className='text-[#0f0] text-sm sm:text-xl font-mono mr-2'
               >{lastUpdated && <p>Atualizado em: {lastUpdated}</p>}</span>
               <Refresh
                 onClick={e => {
