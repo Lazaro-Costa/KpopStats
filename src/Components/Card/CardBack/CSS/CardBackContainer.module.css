@@ -46,10 +46,6 @@
   border: 3px solid rgba(128, 128, 128, 0.3);  /* creates padding around scroll thumb */
 }
 
-/* .card:hover {
-  transform: scale(1.04);
-} */
-
 .circle {
   width: 100px;
   height: 100px;
@@ -83,7 +79,7 @@
   }
 }
 
-@media screen and (max-width: 766px) {
+@media screen and (max-width: 350px) {
   .card {
     width: 200px;
     height: 270px;
@@ -91,6 +87,21 @@
 
   .cardInner {
     grid-template-rows: auto 120px;
+  }
+  .circle {
+    width: 90px;
+    height: 90px;
+  }
+}
+@media screen and (min-width: 351px) and (max-width: 600px) { /* Mobile */
+  .card {
+    width: 250px;
+    height: 310px;
+  }
+  .cardInner {
+    grid-template-rows: auto 120px;
+    justify-items: center;
+
   }
   .circle {
     width: 90px;

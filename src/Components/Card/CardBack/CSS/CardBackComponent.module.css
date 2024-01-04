@@ -15,7 +15,16 @@
   align-items: center;
   gap: 5px;
 }
-@media screen and (max-width: 766px) {
+@media screen and (max-width: 350px) {
+  .containerIcon{
+    padding: 5px;
+    gap: .5rem;
+  }
+  .Icon{
+    gap: 3px;
+  }
+}
+@media screen and (min-width: 351px) and (max-width: 766px) { /* Mobile */
   .containerIcon{
     padding: 5px;
     gap: .5rem;
