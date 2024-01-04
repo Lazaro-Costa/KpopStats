@@ -7,7 +7,7 @@ import PhotoRelated from '../../ProfileIdol/relatedIdol/PhotoRelated'
 
 const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
   return (
-    <div className='flex gap-4 flex-wrap'>
+    <div className='flex gap-4 flex-wrap justify-center'>
       <CardFront.Container key={data.company.id+"company"}>
       <PhotoRelated url={data.company.pictures.banners[0].url} logoUrl={data.company.pictures.profiles[0].url} alt={data.company.name} id={String(data.company.id)} perfil={'company'}/>
         <Label.Root>

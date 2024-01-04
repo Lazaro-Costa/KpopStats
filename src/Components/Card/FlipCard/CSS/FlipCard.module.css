@@ -50,10 +50,24 @@
   top: 10px;
   left: 10px;
 }
-@media screen and (max-width: 766px) {
+@media screen and (max-width: 350px) { /* Mobile mini */
   .flipCard {
     width: 200px;
     height: 270px;
+  }
+  .spanBtnFwd{
+    bottom: 8px;
+    right: 8px;
+  }
+  .spanBtnBwd{
+    top: 8px;
+    left: 8px;
+  }
+}
+@media screen and (min-width: 351px) and (max-width: 600px) { /* Mobile */
+  .flipCard {
+    width: 250px;
+    height: 310px;
   }
   .spanBtnFwd{
     bottom: 8px;

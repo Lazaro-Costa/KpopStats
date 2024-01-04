@@ -48,7 +48,7 @@
     transform: translateY(10px);
   }
 }
-@media screen and (max-width: 766px) { /* Mobile mini */
+@media screen and (max-width: 350px) { /* Mobile mini */
   .card {
     width: 200px;
     height: 270px;
@@ -66,3 +66,22 @@
     left: 18px;
   }
 }
+@media screen and (min-width: 351px) and (max-width: 600px) { /*Mobile */
+  .card {
+    width: 250px;
+    height: 310px;
+  }
+  .cardInner {
+    grid-template-rows: auto 120px;
+    justify-items: center;
+  }
+
+  .circle {
+    width: 180px;
+    height: 180px;
+
+    top: 40px;
+    left: 41px;
+  }
+}
+
