@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 import { IUserEntity } from './Interfaces/Interfaces.api';
 import { apiBase } from './Components/Helper/Variables';
 type ZUser = {
@@ -8,8 +8,8 @@ type ZUser = {
   login: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   autoLogin: () => Promise<void>;
-}
-export const useUserStore = create<ZUser>((set) => ({
+};
+export const useUserStore = create<ZUser>(set => ({
   user: null,
   error: null,
   loading: false,
@@ -39,18 +39,18 @@ export const useUserStore = create<ZUser>((set) => ({
       }
 
       const user = await userResponse.json();
-      set({user});
+      set({ user });
     } catch (error) {
-      if(error instanceof Error){
+      if (error instanceof Error) {
         set({ error });
       }
-    }finally{
+    } finally {
       set({ loading: false });
     }
   },
 
   logout: async () => {
-    set({ loading: true});
+    set({ loading: true });
     try {
       const response = await fetch(`${apiBase}/users/logout`, {
         method: 'POST',
@@ -61,10 +61,10 @@ export const useUserStore = create<ZUser>((set) => ({
         throw new Error('Failed to logout');
       }
 
-      set({ user: null});
+      set({ user: null });
     } catch (error) {
-      if(error instanceof Error) set({ error });
-    }finally{
+      if (error instanceof Error) set({ error });
+    } finally {
       set({ loading: false });
     }
   },
@@ -75,15 +75,14 @@ export const useUserStore = create<ZUser>((set) => ({
         method: 'GET',
         credentials: 'include',
       });
-      if (!response.ok) {
-        throw new Error('Failed to get user details');
+      if (response.ok) {
+        const user = await response.json();
+        set({ user });
       }
-      const user = await response.json();
-      set({ user });
     } catch (error) {
-      if(error instanceof Error) set({ error });
-    }finally{
+      // Handle error
+    } finally {
       set({ loading: false });
     }
-  }
+  },
 }));
