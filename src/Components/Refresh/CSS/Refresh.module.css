@@ -56,6 +56,21 @@
 .button:active {
   border: 1px solid #006cd0;
 }
+
+@media screen and (max-width: 766px) { /* Mobile mini */
+  .button {
+    width: 90px;
+    height: 15px;
+  }
+  .button .button__text {
+    transform: translateX(10px);
+    color: #fff;
+  }
+
+  .button .button__icon {
+    width: 15px;
+  }
+}
 @media screen and (max-width: 767px) { /* Mobile */
   .button {
     width: 100px;

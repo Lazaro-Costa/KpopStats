@@ -41,3 +41,9 @@
     opacity: 1;
   }
 }
+@media screen and (max-width: 766px) {
+  .Btn {
+    width: 25px;
+    height: 25px;
+  }
+}

@@ -48,3 +48,21 @@
     transform: translateY(10px);
   }
 }
+@media screen and (max-width: 766px) { /* Mobile mini */
+  .card {
+    width: 200px;
+    height: 270px;
+  }
+
+  .cardInner {
+    grid-template-rows: auto 120px;
+  }
+
+  .circle {
+    width: 155px;
+    height: 155px;
+
+    top: 19px;
+    left: 18px;
+  }
+}
