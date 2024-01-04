@@ -76,3 +76,4 @@ const Home = () => {
 };
 
 export default Home;
+// TODO: Voltar e corrigir os componentes para telas do tamanho do Galaxy Fold

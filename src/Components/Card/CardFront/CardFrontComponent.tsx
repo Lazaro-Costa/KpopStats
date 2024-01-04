@@ -2,6 +2,7 @@ import { CardFront } from '.';
 import PhotoItem from '../../Photo/PhotoItem';
 import { Label } from '../../Label';
 import { IGetGroups } from '../../../Interfaces/Interfaces.api';
+import { Link } from 'react-router-dom';
 
 const CardComponent = ({ group }: { group: IGetGroups }) => {
   return (
@@ -14,9 +15,9 @@ const CardComponent = ({ group }: { group: IGetGroups }) => {
               <Label.Small text={group.fandom_name} />
             </span>
             <span className="row-span-2">
-              <a href={`/group/${group.id}`} target='_blank'>
+              <Link to={`/group/${group.id}`}>
                 <Label.Big text={group.name}/>
-              </a>
+              </Link>
             </span>
           </div>
         </Label.Root>
