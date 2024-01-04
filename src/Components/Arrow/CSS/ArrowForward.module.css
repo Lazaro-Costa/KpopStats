@@ -10,7 +10,7 @@
   cursor: pointer;
   position: relative;
   border: none;
-  
+
   transform: rotate(90deg);
   margin: 0;
   padding: 0;
@@ -39,5 +39,11 @@
   100% {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+@media screen and (max-width: 766px) {
+  .Btn {
+    width: 25px;
+    height: 25px;
   }
 }

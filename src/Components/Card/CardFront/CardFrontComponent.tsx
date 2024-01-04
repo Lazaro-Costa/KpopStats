@@ -11,12 +11,13 @@ const CardComponent = ({ group }: { group: IGetGroups }) => {
         <Label.Root>
           <div className="grid-rows-2">
             <span className="row-span-1 flex gap-1 w-max h-max">
-              <Label.Small text={group.company.name} />
+              <Label.Small text={group.company.name}/>
               <Label.Small text={group.fandom_name} />
             </span>
             <span className="row-span-2">
               <Link to={`/group/${group.id}`}>
-                <Label.Big text={group.name}/>
+                <Label.Big text={group.name}
+                className="text-md md:text-3xl"/>
               </Link>
             </span>
           </div>

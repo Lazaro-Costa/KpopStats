@@ -82,3 +82,18 @@
     transform: translateY(10px);
   }
 }
+
+@media screen and (max-width: 766px) {
+  .card {
+    width: 200px;
+    height: 270px;
+  }
+
+  .cardInner {
+    grid-template-rows: auto 120px;
+  }
+  .circle {
+    width: 90px;
+    height: 90px;
+  }
+}
