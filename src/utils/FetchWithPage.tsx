@@ -8,12 +8,13 @@ function FetchWithPage<T>(
   page = 1,
 ) {
   const [fetchLoad, setFetchLoad] = React.useState(false);
-  const [fetchError, setFetchError] = React.useState<Error | boolean>(false);
+  const [fetchError, setFetchError] = React.useState<Error | boolean>(null);
 
   React.useEffect(() => {
     const fetchAux = async () => {
       try {
         setFetchLoad(true);
+        setFetchError(false);
         const res: Response = await fetch(`${apiBase}/${uri}?page=${page}`);
         if (!res.ok) return;
         const data = await res.json() as T[];

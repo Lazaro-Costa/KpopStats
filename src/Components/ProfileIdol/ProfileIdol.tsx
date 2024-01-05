@@ -13,6 +13,7 @@ import { dateToString } from '../../utils/dateToString';
 import { IGetIdolRelated } from './IGetRelated';
 import { IGetIdol } from '../../Interfaces/Interfaces.api';
 import AuxImage from '../ImageModal/AuxImage';
+import converterStringParaObjeto from '../../utils/stringToObject';
 type InfoIdol = {
   Name: string;
   'Birth name': string;
@@ -35,20 +36,7 @@ const ProfileIdol = () => {
       'Birth place': data.nationality ? data.nationality : 'N/A',
     };
   }
-  function converterStringParaObjeto(str: string): Record<string, string> {
-    const keyValuePairs = str.split('_');
-    const result: Record<string, string> = {};
 
-    if (keyValuePairs.length === 0 || keyValuePairs[0] === '') {
-      return result;
-    }
-    keyValuePairs.forEach(pair => {
-      const [key, value] = pair.split(': ');
-      result[key.trim()] = value.trim();
-    });
-
-    return result;
-  }
 
   React.useEffect(() => {
     Promise.all([
@@ -84,7 +72,7 @@ const ProfileIdol = () => {
           <AuxImage pictures={data.pictures}/>
 
         </div>
-        <div className="grid grid-cols-2 gap-4 mb-3">
+        <div className="flex flex-col gap-4 m-2 sm:grid sm:grid-cols-2 sm:gap-4 sm:mb-3">
           <div
             className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
           >

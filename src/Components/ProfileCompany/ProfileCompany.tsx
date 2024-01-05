@@ -12,6 +12,7 @@ import { IGetCompanys, IGetGroups } from '../../Interfaces/Interfaces.api';
 import { IGetCompanyRelated } from '../ProfileIdol/IGetRelated';
 import { dateToString } from '../../utils/dateToString';
 import AuxImage from '../ImageModal/AuxImage';
+import converterStringParaObjeto from '../../utils/stringToObject';
 
 type IGetCompanyProfile = {
   Name: string;
@@ -37,20 +38,6 @@ const ProfileCompany = () => {
       Headquarters: data.headquarters,
       CEO: data.ceo,
     };
-  }
-  function converterStringParaObjeto(str: string): Record<string, string> {
-    const keyValuePairs = str.split('_');
-    const result: Record<string, string> = {};
-
-    if (keyValuePairs.length === 0 || keyValuePairs[0] === '') {
-      return result;
-    }
-    keyValuePairs.forEach(pair => {
-      const [key, value] = pair.split(': ');
-      result[key.trim()] = value.trim();
-    });
-
-    return result;
   }
 
   React.useEffect(() => {
@@ -84,7 +71,8 @@ const ProfileCompany = () => {
         >
           <AuxImage pictures={data.pictures}/>
         </div>
-        <div className="grid grid-cols-2 gap-4 mb-3">
+
+        <div className="flex flex-col gap-4 m-2 md:grid md:grid-cols-2 md:gap-4 md:mb-3">
           <div
             className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}
           >

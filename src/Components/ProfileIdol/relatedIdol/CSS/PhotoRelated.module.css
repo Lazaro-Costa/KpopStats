@@ -47,3 +47,15 @@
 .flipCardBack {
   transform: rotateY(180deg);
 }
+@media screen and (max-width: 350px) {
+  .containerPhoto{
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (min-width: 351px) and (max-width: 600px) {
+  .containerPhoto{
+    width: 190px;
+    height: 190px;
+  }
+}
