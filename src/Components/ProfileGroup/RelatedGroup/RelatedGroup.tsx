@@ -38,9 +38,9 @@ const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
                     <Label.Small text={data.name} />
                   </span>
                   <span className="row-span-2 justify-center items-center text-center">
-                    <a href={`/idol/${idol.id}`} target="_self">
+                    <Link to={`/idol/${idol.id}`}>
                       <Label.Big text={idol.name} className='text-center'/>
-                    </a>
+                    </Link>
                   </span>
                 </div>
               </Label.Root>

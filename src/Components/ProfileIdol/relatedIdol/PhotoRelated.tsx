@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './CSS/PhotoRelated.module.css';
+import { Link } from 'react-router-dom';
 type IPhotoItem = {
   url: string;
   logoUrl: string;
@@ -16,25 +17,25 @@ const PhotoRelated = ({ url, logoUrl, alt, id, perfil }: IPhotoItem) => {
         className={`${styles.flipCardInner} ${isActive ? styles.active : ''}`}
       >
         <div className={styles.flipCardFront}>
-          <a href={`/${perfil}/${id}`} target="_self">
+          <Link to={`/${perfil}/${id}`}>
             <img
               src={url}
               alt={alt}
               onMouseOver={() => setIsActive(true)}
               onMouseOut={() => setIsActive(false)}
-            />
-          </a>
+              />
+          </Link>
         </div>
 
         <div className={styles.flipCardBack}>
-          <a href={`/${perfil}/${id}`} target="_self">
+        <Link to={`/${perfil}/${id}`}>
             <img
               src={logoUrl}
               alt={alt}
               onMouseOver={() => setIsActive(true)}
               onMouseOut={() => setIsActive(false)}
             />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
