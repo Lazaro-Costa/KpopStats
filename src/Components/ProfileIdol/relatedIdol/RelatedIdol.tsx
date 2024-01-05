@@ -78,12 +78,12 @@ const RelatedIdol = ({ data }: { data: IGetIdolRelated }) => {
                     <Label.Small text={data.group.name} />
                   </span>
                   <span className="row-span-2 justify-center items-center text-center">
-                    <Link to={`/idol/${idol.id}`}>
+                    <a href={`/idol/${idol.id}`} target='_self'>
                       <Label.Big
                         text={idol.name}
                         className="text-md md:text-3xl text-center"
                       />
-                    </Link>
+                    </a>
                   </span>
                 </div>
               </Label.Root>
