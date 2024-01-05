@@ -64,8 +64,8 @@ const ProfileGroups = () => {
         >
 
           <AuxImage pictures={data.pictures} />
-
         </div>
+
         <div className="flex flex-col gap-4 m-2 md:grid md:grid-cols-2 md:gap-4 md:mb-3">
           <div
             className={`flex flex-col items-center w-max-750 gap-4 px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm outline-dashed outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent`}

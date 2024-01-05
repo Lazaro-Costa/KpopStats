@@ -24,7 +24,7 @@ const RelatedIdol = ({ data }: { data: IGetIdolRelated }) => {
               <Link to={`/company/${data.company.id}`}>
                 <Label.Big
                   text={data.company.name}
-                  className="text-md md:text-3xl"
+                  className="text-md md:text-3xl text-center"
                 />
               </Link>
             </span>
@@ -52,7 +52,7 @@ const RelatedIdol = ({ data }: { data: IGetIdolRelated }) => {
                 <Link to={`/group/${data.group.id}`}>
                   <Label.Big
                     text={data.group.name}
-                    className="text-md md:text-3xl"
+                    className="text-md md:text-3xl text-center"
                   />
                 </Link>
               </span>
@@ -81,7 +81,7 @@ const RelatedIdol = ({ data }: { data: IGetIdolRelated }) => {
                     <a href={`/idol/${idol.id}`} target="_self">
                       <Label.Big
                         text={idol.name}
-                        className="text-md md:text-3xl"
+                        className="text-md md:text-3xl text-center"
                       />
                     </a>
                   </span>

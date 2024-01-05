@@ -17,7 +17,7 @@ const CardComponent = ({ group }: { group: IGetGroups }) => {
             <span className="row-span-2">
               <Link to={`/group/${group.id}`}>
                 <Label.Big text={group.name}
-                className="text-md md:text-3xl"/>
+                className="text-md md:text-3xl text-center"/>
               </Link>
             </span>
           </div>

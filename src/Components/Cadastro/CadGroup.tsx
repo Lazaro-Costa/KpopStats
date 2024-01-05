@@ -12,9 +12,9 @@ import {
 import DropdownSelect from '../Dropdown/Dropdown';
 import Button from '../Button/Button';
 import { CreateEntity } from '../../utils/CreateEntity';
-import FetchInfoWithPagination from '../../utils/FetchInfoWithPagination';
 import { apiBase } from '../Helper/Variables';
 import Loading from '../Loading/Loading';
+import FetchWithPage from '../../utils/FetchWithPage';
 
 const CadGroup = () => {
   const [group, setGroup] = React.useState<ICreateGroup>({
@@ -38,12 +38,12 @@ const CadGroup = () => {
   const [showOriginalButton, setShowOriginalButton] = React.useState(true);
 
 
-  FetchInfoWithPagination({
-    uri: 'companys',
-    entity: companys,
-    page,
-    setEntity: setCompanys,
-  });
+  FetchWithPage(
+    'companys',
+    companys,
+    setCompanys,
+    page
+  );
 
   const handleClick = async e => {
     e.preventDefault();

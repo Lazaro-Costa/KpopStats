@@ -18,7 +18,7 @@ const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
             </span>
             <span className="row-span-2">
               <Link to={`/company/${data.company.id}`}>
-                <Label.Big text={data.company.name}/>
+                <Label.Big text={data.company.name} className='text-center'/>
               </Link>
             </span>
           </div>
@@ -39,7 +39,7 @@ const RelatedGroup = ({data}: {data: IGetRelatedGroup}) => {
                   </span>
                   <span className="row-span-2 justify-center items-center text-center">
                     <a href={`/idol/${idol.id}`} target="_self">
-                      <Label.Big text={idol.name}/>
+                      <Label.Big text={idol.name} className='text-center'/>
                     </a>
                   </span>
                 </div>

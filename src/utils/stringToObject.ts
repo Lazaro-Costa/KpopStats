@@ -1,3 +1,4 @@
+
 export default function converterStringParaObjeto(str: string): Record<string, string> {
   const keyValuePairs = str.split('_');
   const result: Record<string, string> = {};
@@ -6,7 +7,7 @@ export default function converterStringParaObjeto(str: string): Record<string, s
     return result;
   }
   keyValuePairs.forEach(pair => {
-    const [key, value] = pair.split(': ');
+    const [key, value] = pair.split(':');
     result[key.trim()] = value.trim();
   });
 

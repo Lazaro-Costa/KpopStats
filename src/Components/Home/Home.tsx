@@ -76,4 +76,4 @@ const Home = () => {
 };
 
 export default Home;
-// TODO: Voltar e corrigir os componentes para telas do tamanho do Galaxy Fold
+// TODO: Conferir se os padroes dos @media screen estao iguais e testar a responsividade das telas.

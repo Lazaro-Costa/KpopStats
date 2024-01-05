@@ -23,7 +23,8 @@ const FootRoot: React.FC = () => {
       }`}
     >
       <div className="h-full flex items-center justify-center">
-      Powered by &copy;LZ Productions | {new Date().getFullYear()}
+      Powered by <a href="https://www.instagram.com/lazarao_?igsh=ODA1NTc5OTg5Nw=="
+      className='flex mx-1 text-blue-500'>&copy;LZ Productions</a> | {new Date().getFullYear()}
       </div>
     </footer>
   );
